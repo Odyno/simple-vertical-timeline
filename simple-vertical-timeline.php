@@ -128,7 +128,10 @@ class Simple_Vertical_Timeline {
 	function add_stylesheet() {
 		// Respects SSL, Style.css is relative to the current file
 		wp_register_style( 'svt-style', plugins_url('css/simple-vertical-timeline.css', __FILE__) );
+		wp_register_style( 'svt-linearicons', plugins_url('img/linearicons/style.css', __FILE__) );
+
 		wp_enqueue_style( 'svt-style' );
+		wp_enqueue_style( 'svt-linearicons' );
 	}
 
 	/**
@@ -166,14 +169,87 @@ class Simple_Vertical_Timeline {
 			</div> <!-- svt-cd-timeline-img -->
 
 			<div class="svt-cd-timeline-content is-hidden">
-				<h2>'.$atts['title'].'</h2>
-				'.do_shortcode($content).'<br>
+				<h2>'.$atts['title'].' '.$this->add_share_code($atts,$content).'</h2>'
+				.do_shortcode($content).'<br>
 				'.$buttons.'
 				<span class="svt-cd-date">'.$atts['date'].'</span>
 			</div> <!-- svt-cd-timeline-content -->
 		</div> <!-- svt-cd-timeline-block -->
 		';
 
+	}
+
+	/**
+	 * Add shortcode on the events
+	 *
+	 * @param $atts
+	 */
+	function add_share_code($atts,$content){
+
+		// Get Post Thumbnail for pinterest
+		$crunchifyThumbnail = null;
+
+		$image_evento   = $this->recupera_immagine($content);
+		if ( empty($image_evento) ){
+			$thumbnail_object = get_post(get_post_thumbnail_id(get_the_ID()));
+			$image_articolo = $thumbnail_object->guid;
+
+			if ( !empty($image_articolo) ){
+				$crunchifyThumbnail= $image_articolo;
+			}
+
+		}else{
+			$crunchifyThumbnail= $image_evento;
+		}
+
+		// Get current page URL
+		$crunchifyURL = urlencode( wp_get_shortlink() );
+
+		// Get current page title
+		$crunchifyTitle = substr(urlencode(strip_tags($content)), 0, 135 - strlen($crunchifyURL) );
+
+		if (empty($crunchifyTitle)){
+			$crunchifyTitle=urlencode(get_the_title());
+		}
+
+		// Construct sharing URL without using any script
+		$twitterURL = 'https://twitter.com/intent/tweet?text='.$crunchifyTitle.'&amp;url='.$crunchifyURL;
+
+		$facebookURL = 'https://www.facebook.com/sharer/sharer.php?u='.$crunchifyURL;
+
+		$googleURL = 'https://plus.google.com/share?url='.$crunchifyURL;
+
+		$whatsappURL = 'whatsapp://send?text='.$crunchifyTitle . ' ' . $crunchifyURL;
+
+		$linkedInURL = 'https://www.linkedin.com/shareArticle?mini=true&url='.$crunchifyURL.'&amp;title='.$crunchifyTitle;
+
+		// Based on popular demand added Pinterest too
+		$pinterestURL = 'https://pinterest.com/pin/create/button/?url='.$crunchifyURL.'&amp;media='.$crunchifyThumbnail.'&amp;description='.$crunchifyTitle;
+
+		// Add sharing button at the end of page/page content
+		$content  = '<span class="svt-share">';
+		$content .= ' <span class="lnr lnr-link svt-share-icon"/>';
+		$content .= ' <span class="svt-sharebox">';
+		$content .= '<a href="'. $twitterURL .'" target="_blank"><img src="'.plugins_url('/img/share/twitter.svg', __FILE__).'" alt="Twitter"></a>';
+		$content .= '<a href="'.$facebookURL.'" target="_blank"><img src="'.plugins_url('/img/share/facebook.svg', __FILE__).'" alt="Facebook"></a>';
+		$content .= '<a href="'.$whatsappURL.'" target="_blank"><img src="'.plugins_url('/img/share/whatsapp.svg', __FILE__).'" alt="WhatsApp"></a>';
+		$content .= '<a href="'.$googleURL.'" target="_blank"><img src="'.plugins_url('/img/share/googleplus.svg', __FILE__).'" alt="Google+"></a>';
+		$content .= '<a href="'.$linkedInURL.'" target="_blank"><img src="'.plugins_url('/img/share/linkedin.svg', __FILE__).'" alt="LinkedIn"></a>';
+		$content .= '<a href="'.$pinterestURL.'" target="_blank"><img src="'.plugins_url('/img/share/pinterest.svg', __FILE__).'" alt="Pin It"></a>';
+		$content .= ' </span>';
+		$content .= '</span>';
+
+		return $content;
+
+	}
+
+	function recupera_immagine($content) {
+		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+		$out=null;
+		if ($output!=0){
+			$out=$matches[1][0];
+		}
+		return $out;
 	}
 
 

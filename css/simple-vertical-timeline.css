@@ -1,3 +1,46 @@
+.svt-share {
+  position: relative;
+  display: inline-block; }
+  .svt-share .svt-sharebox {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px dotted black;
+    border-right: 1px dotted black;
+    visibility: hidden;
+    width: 120px;
+    background-color: #fff;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    width: 30px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -15px; }
+    .svt-share .svt-sharebox img {
+      width: 24px;
+      height: 24px; }
+    .svt-share .svt-sharebox.svt-sharebox::after {
+      content: " ";
+      position: absolute;
+      top: 100%;
+      /* At the bottom of the tooltip */
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: black transparent transparent transparent; }
+  .svt-share:hover .svt-sharebox {
+    visibility: visible; }
+  .svt-share .svt-share-icon {
+    color: gray;
+    vertical-align: super;
+    font-size: small; }
+    .svt-share .svt-share-icon:hover {
+      color: black; }
+
 /* --------------------------------
 
 Modules - reusable parts of our design

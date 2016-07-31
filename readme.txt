@@ -32,6 +32,11 @@ The result is the same of previous button, one shortcode will be added on the pl
 Yes and no, if you don't want to customise the timeline, that's all. But if you want you can try to customise the event as you want. Now all the short code are on place and it's only up to you to add event or custom comment.
 Enjoy
 
+——
+Icons Used Please refer to https://linearicons.com/free/license for the license.
+
+
+
 
 == Installation ==
 "Simple Vertical Timeline" can be installed using integrated WordPress plugin installer or manually.
