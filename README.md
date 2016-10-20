@@ -2,6 +2,8 @@
 
 Allow to create a  Simple Vertical Timeline on the current blog.
 
+[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/simple-vertical-timeline.svg)]() [![WordPress](https://img.shields.io/wordpress/v/simple-vertical-timeline.svg)]() [![WordPress rating](https://img.shields.io/wordpress/plugin/r/simple-vertical-timeline.svg)]()
+
 ## Description 
 Simple Vertical Timeline is a simple plugin that allow you to create a timeline in your Article or Page.
 You can decide to add it via shortcode or via useful and simple buttons in your editor.
@@ -18,7 +20,6 @@ The button "Simple Vertical Timeline"  allow you to create the main vertical lin
 ### STEP B 
 The button "Event for Simple Vertical Timeline" add a new event in the tempo line. It's very easy, move the pointer into the new element already created and click on it. One dialog will ask you to decide the title, just a quick starting note, the date and the color of node in the time line.
 The result is the same of previous button, one shortcode will be added on the place of mouse and the new event with all the information will be shown on the page
-
 
 ### ... IS IT ALL?
 Yes and no, if you don't want to customise the timeline, that's all. But if you want you can try to customise the event as you want. Now all the short code are on place and it's only up to you to add event or custom comment.

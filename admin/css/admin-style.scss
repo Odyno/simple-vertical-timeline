@@ -1,0 +1,47 @@
+
+.ast_container_promotion {
+
+  .sm_button {
+    display: block;
+    padding: 4px 4px 4px 25px;
+    background: no-repeat 5px 50%;
+    text-decoration: none;
+
+    &:hover {
+      border-color: gainsboro;
+      border-bottom-width: 4px;
+    }
+
+    &.icon_bug {
+      background-image: url(../images/bug.png);
+    }
+    &.icon_code {
+      background-image: url(../images/code.png);
+    }
+    &.icon_autor {
+      background-image: url(../images/logo_small.png);
+    }
+    &.icon_star {
+      background-image: url(../images/star.png);
+    }
+    &.icon_demo {
+      background-image: url(../images/demo.gif);
+    }
+
+    &.flag_it {
+      background-image: url(../images/flags/it_IT.png);
+    }
+
+    &.flag_en {
+      background-image: url(../images/flags/en_EN.png);
+    }
+
+    &.flag_es {
+      background-image: url(../images/flags/es_ES.png);
+    }
+
+  }
+
+}
+
+

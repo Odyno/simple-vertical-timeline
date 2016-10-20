@@ -20,11 +20,24 @@ along with Simple Vertical Timeline. If not, see https://www.gnu.org/licenses/ol
 */
 
 
+require 'plugin-update-checker/plugin-update-checker.php';
+$className = PucFactory::getLatestClassVersion('PucGitHubChecker');
+$myUpdateChecker = new $className(
+	'https://github.com/Odyno/home-money-control',
+	__FILE__,
+	'master'
+);
+
+
+
 if( !defined( 'SVT_VER' ) )
 	/**
 	 *
 	 */
 	define( 'SVT_VER', '0.0.2' );
+
+
+define('__SVT_FILE__',__FILE__);
 
 
 // Start up the engine
@@ -45,6 +58,8 @@ class Simple_Vertical_Timeline {
 	 */
 	private function __construct() {
 
+		$this->loadDependecy();
+
 		//Backend
 		add_action( 'init', array( $this, 'add_tinymce_buttons' ) );
 		add_action( 'plugins_loaded', array( $this, 'textdomain' ) );
@@ -54,7 +69,33 @@ class Simple_Vertical_Timeline {
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_js' ) );
 		add_shortcode( 'svt-event', array( $this, 'add_shortcode_event' ) );
 		add_shortcode( 'svtimeline', array( $this, 'add_shortcode_timeline' ) );
+
+		register_activation_hook( __SVT_FILE__, array( $this, 'on_activation' ) );
+		register_deactivation_hook( __SVT_FILE__, array( $this, 'on_deactivation' ) );
+		
 	}
+
+	function loadDependecy() {
+		require_once( 'admin/svt-settings.php' );
+		new SVT_Settings();
+	}
+
+	/**
+	 * Installation. Runs on activation.
+	 */
+	public function on_activation() {
+		update_option(SVT_Settings::OPTION_ANALITYCS, true);
+		update_option(SVT_Settings::OPTION_SIGNE, true);
+	}
+
+	/**
+	 * Deactivation Function
+	 */
+	public function on_deactivation() {
+		delete_option(SVT_Settings::OPTION_ANALITYCS);
+		delete_option(SVT_Settings::OPTION_SIGNE);
+	}
+
 
 	/**
 	 * If an instance exists, this returns it.  If not, it creates one and
@@ -164,6 +205,7 @@ class Simple_Vertical_Timeline {
 
 		return ' 
  		<div class="svt-cd-timeline-block">
+ 		    <a name="'.urlencode($atts['title']).'"></a>
 			<div class="svt-cd-timeline-img '.$atts['class'].' is-hidden">
 				<img src="'.$atts['icon'].'" alt="Picture">
 			</div> <!-- svt-cd-timeline-img -->
@@ -203,7 +245,7 @@ class Simple_Vertical_Timeline {
 		}
 
 		// Get current page URL
-		$crunchifyURL = urlencode( wp_get_shortlink() );
+		$crunchifyURL = urlencode( wp_get_shortlink().'#'.urlencode($atts['title']));
 
 		// Get current page title
 		$crunchifyTitle = substr(urlencode(strip_tags($content)), 0, 135 - strlen($crunchifyURL) );
@@ -271,7 +313,10 @@ class Simple_Vertical_Timeline {
 			'svtimeline'
 		);
 
-		return '<section id="svt-cd-timeline" class="svt-cd-container">'.do_shortcode($content).'</section> <!-- cd-timeline -->';
+		$out= '<section id="svt-cd-timeline" class="svt-cd-container">'.do_shortcode($content).'</section> <!-- cd-timeline -->';
+		$out .= '<div style=\'' . SVT_Settings::get_sign() . '\'>powered by <a href="http://www.staniscia.net/simple-vertical-timeline/">SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div></div>';
+		
+		return $out;
 	}
 
 }/// end class

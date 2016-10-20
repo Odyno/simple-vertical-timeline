@@ -3,7 +3,7 @@ Contributors: Odyno
 Tags: responsive timeline, Responsive Timeline WordPress,Timeline for WordPress, Timeline, vertical, timeline, animated, css3, animations, evan, herman, evan herman, easy, time, line, font awesome, font, awesome, announcements, notifications, simple, events, calendar, scroll, triggered, scrolling, animated, fade, in, fade in, timeline, timelines, timelineJS, journalism tool
 Donate link: http://www.staniscia.net/donate
 Requires at least: 3.4.2
-Tested up to: 4.5.1
+Tested up to: 4.6
 Stable tag: 0.0.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -82,12 +82,20 @@ None
 3. Add Event on Timeline
 4. Shortcode for Event
 5. Timeline responsive view
+6. Share Event
+
 
 
 == Changelog ==
 
 = ToDo =
 * I18n
+
+= 0.0.2 =
+* new share icons
+* new the "more" button on event
+* new settings page with help
+* WP 4.6 ready
 
 = 0.0.1 =
 * Baseline to Release

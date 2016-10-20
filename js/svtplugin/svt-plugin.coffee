@@ -49,8 +49,7 @@ do ->
               type: 'textbox'
               name: 'content'
               label: 'Note:'
-              size: 40
-              row: 4
+              multiline: true
               value: ed.selection.getContent()
             }
 
