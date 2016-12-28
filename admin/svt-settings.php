@@ -64,11 +64,12 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 
 
 		public function register_settings_sections() {
-			$this->add_section_description();
+			//$this->add_section_description();
 			$this->add_section_adv();
 
 		}
 
+		//NOT USED
 		public function add_section_description() {
 			//Build new Section
 			add_settings_section(
@@ -87,7 +88,7 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 			//Build new Section
 			add_settings_section(
 				SVT_Settings::PAGE_SETTING . "_ADV",                 //String for use in the 'id' attribute of tags.
-				__( 'Advertise', 'svt' ),                              //Title of the section
+				__( '', 'svt' ),                              //Title of the section
 				array(
 					$this,
 					'get_HTML_ADV_description'
@@ -137,11 +138,6 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 
 		function get_HTML_field_Analitycs() {
 			echo ' <input name="' . SVT_Settings::OPTION_ANALITYCS . '" type="checkbox" value="1"  class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_ANALITYCS ), false ) . ' />';
-		}
-
-
-		function get_HTML_Description_Page() {
-			include( plugin_dir_path( __SVT_FILE__ ) . '/admin/views/html-promote.inc.php' );
 		}
 
 		function get_HTML_Setting_Page() {

@@ -91,10 +91,14 @@ None
 = ToDo =
 * I18n
 
+= 0.0.3 =
+* Removed the autodate fill
+* New share icons
+* New settings page with help
+
+
 = 0.0.2 =
-* new share icons
 * new the "more" button on event
-* new settings page with help
 * WP 4.6 ready
 
 = 0.0.1 =

@@ -3,7 +3,7 @@
 Plugin Name: Simple Vertical Timeline
 Plugin URI: http://www.staniscia.net/simple-vertical-timeline/
 Description: Allow to create a VERY Simple Vertical Timeline on the current blog.
-Version: 0.0.2
+Version: 0.0.3
 Author: Alessandro Staniscia
 Author URI: ttp://www.staniscia.net
 License: GPL2
@@ -20,308 +20,304 @@ along with Simple Vertical Timeline. If not, see https://www.gnu.org/licenses/ol
 */
 
 
-require 'plugin-update-checker/plugin-update-checker.php';
-$className = PucFactory::getLatestClassVersion('PucGitHubChecker');
-$myUpdateChecker = new $className(
-	'https://github.com/Odyno/home-money-control',
-	__FILE__,
-	'master'
-);
-
 
 
 if( !defined( 'SVT_VER' ) )
 	/**
 	 *
 	 */
-	define( 'SVT_VER', '0.0.2' );
+	define( 'SVT_VER', '0.0.3' );
 
 
 define('__SVT_FILE__',__FILE__);
 
+if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 
 // Start up the engine
-/**
- * Class Simple_Vertical_Timeline
- */
-class Simple_Vertical_Timeline {
 	/**
-	 * Static property to hold our singleton instance
-	 *
+	 * Class Simple_Vertical_Timeline
 	 */
-	static $instance = false;
+	class Simple_Vertical_Timeline {
+		/**
+		 * Static property to hold our singleton instance
+		 *
+		 */
+		static $instance = false;
 
-	/**
-	 * This is our constructor
-	 *
-	 * @return void
-	 */
-	private function __construct() {
+		/**
+		 * This is our constructor
+		 *
+		 * @return void
+		 */
+		private function __construct() {
 
-		$this->loadDependecy();
+			$this->loadDependecy();
 
-		//Backend
-		add_action( 'init', array( $this, 'add_tinymce_buttons' ) );
-		add_action( 'plugins_loaded', array( $this, 'textdomain' ) );
+			//Backend
+			add_action( 'init', array( $this, 'add_tinymce_buttons' ) );
+			add_action( 'plugins_loaded', array( $this, 'textdomain' ) );
 
-		//front_end
-		add_action( 'wp_enqueue_scripts', array( $this, 'add_stylesheet' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'add_js' ) );
-		add_shortcode( 'svt-event', array( $this, 'add_shortcode_event' ) );
-		add_shortcode( 'svtimeline', array( $this, 'add_shortcode_timeline' ) );
+			//front_end
+			add_action( 'wp_enqueue_scripts', array( $this, 'add_stylesheet' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'add_js' ) );
+			add_shortcode( 'svt-event', array( $this, 'add_shortcode_event' ) );
+			add_shortcode( 'svtimeline', array( $this, 'add_shortcode_timeline' ) );
 
-		register_activation_hook( __SVT_FILE__, array( $this, 'on_activation' ) );
-		register_deactivation_hook( __SVT_FILE__, array( $this, 'on_deactivation' ) );
-		
-	}
+			register_activation_hook( __SVT_FILE__, array( $this, 'on_activation' ) );
+			register_deactivation_hook( __SVT_FILE__, array( $this, 'on_deactivation' ) );
 
-	function loadDependecy() {
-		require_once( 'admin/svt-settings.php' );
-		new SVT_Settings();
-	}
-
-	/**
-	 * Installation. Runs on activation.
-	 */
-	public function on_activation() {
-		update_option(SVT_Settings::OPTION_ANALITYCS, true);
-		update_option(SVT_Settings::OPTION_SIGNE, true);
-	}
-
-	/**
-	 * Deactivation Function
-	 */
-	public function on_deactivation() {
-		delete_option(SVT_Settings::OPTION_ANALITYCS);
-		delete_option(SVT_Settings::OPTION_SIGNE);
-	}
-
-
-	/**
-	 * If an instance exists, this returns it.  If not, it creates one and
-	 * retuns it.
-	 *
-	 * @return WP_Comment_Notes
-	 */
-	public static function getInstance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
 		}
 
-		return self::$instance;
-	}
+		function loadDependecy() {
+			require_once( 'admin/svt-settings.php' );
+			new SVT_Settings();
+		}
 
-	/**
-	 * load textdomain
-	 *
-	 * @return void
-	 */
-	public function textdomain() {
-		load_plugin_textdomain( 'svt', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	}
+		/**
+		 * Installation. Runs on activation.
+		 */
+		public function on_activation() {
+			update_option( SVT_Settings::OPTION_ANALITYCS, true );
+			update_option( SVT_Settings::OPTION_SIGNE, true );
+		}
 
-
-	/**
-	 * Load Tinymce
-	 */
-	function add_tinymce_buttons() {
-		add_filter( "mce_external_plugins", array($this,"svt_add_buttons") );
-		add_filter( 'mce_buttons', array($this,'svt_register_buttons') );
-	}
-
-	/**
-	 * Add custom buttons to Tinymce
-	 *
-	 * @param $plugin_array
-	 *
-	 * @return mixed
-	 */
-	function svt_add_buttons( $plugin_array ) {
-		$plugin_array['svt'] = plugins_url('js/svtplugin/svt-plugin.js', __FILE__);
-		return $plugin_array;
-	}
-
-	/**
-	 * Add action on custom buttons to Tinymce
-	 *
-	 * @param $buttons
-	 *
-	 * @return mixed
-	 */
-	function svt_register_buttons( $buttons ) {
-		array_push( $buttons, 'svtimeline',"svtevent" ); // dropcap', 'recentposts
-		return $buttons;
-	}
-
-	/**
-	 * add style
-	 */
-	function add_js() {
-		// Respects SSL, Style.css is relative to the current file
-		wp_register_script('svt-script', plugins_url('js/svt-animation.js', __FILE__), array( 'jquery' ) );
-		wp_enqueue_script( 'svt-script');
-	}
+		/**
+		 * Deactivation Function
+		 */
+		public function on_deactivation() {
+			delete_option( SVT_Settings::OPTION_ANALITYCS );
+			delete_option( SVT_Settings::OPTION_SIGNE );
+		}
 
 
-	/**
-	 * add style
-	 */
-	function add_stylesheet() {
-		// Respects SSL, Style.css is relative to the current file
-		wp_register_style( 'svt-style', plugins_url('css/simple-vertical-timeline.css', __FILE__) );
-		wp_register_style( 'svt-linearicons', plugins_url('img/linearicons/style.css', __FILE__) );
+		/**
+		 * If an instance exists, this returns it.  If not, it creates one and
+		 * retuns it.
+		 *
+		 * @return WP_Comment_Notes
+		 */
+		public static function getInstance() {
+			if ( ! self::$instance ) {
+				self::$instance = new self;
+			}
 
-		wp_enqueue_style( 'svt-style' );
-		wp_enqueue_style( 'svt-linearicons' );
-	}
+			return self::$instance;
+		}
 
-	/**
-	 * Add short code for the single event
-	 *
-	 * @param $atts
-	 * @param null $content
-	 *
-	 * @return string
-	 */
-	function add_shortcode_event( $atts , $content = null ) {
-		// Attributes
-		$atts = shortcode_atts(
-			array(
-				'icon' => plugins_url('img/cd-icon-location.svg', __FILE__),
-				'title' => '',
-				'date' => date("Y-m-d H:i"),
-				'class' => 'svt-cd-green',
-				'button_label' => 'More',
-				'button_link' => ''
-			),
-			$atts,
-			'svt-event'
-		);
+		/**
+		 * load textdomain
+		 *
+		 * @return void
+		 */
+		public function textdomain() {
+			load_plugin_textdomain( 'svt', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		}
 
-		if ( ! empty($atts['button_link']) )
-		  $buttons='<a href="'.$atts['button_link'].'" class="svt-cd-read-more" target="_new">'.$atts['button_label'].'</a>';
-		else
-		  $buttons=''; // none now <a href="#0" class="svt-cd-read-more">pluto</a>';
 
-		return ' 
+		/**
+		 * Load Tinymce
+		 */
+		function add_tinymce_buttons() {
+			add_filter( "mce_external_plugins", array( $this, "svt_add_buttons" ) );
+			add_filter( 'mce_buttons', array( $this, 'svt_register_buttons' ) );
+		}
+
+		/**
+		 * Add custom buttons to Tinymce
+		 *
+		 * @param $plugin_array
+		 *
+		 * @return mixed
+		 */
+		function svt_add_buttons( $plugin_array ) {
+			$plugin_array['svt'] = plugins_url( 'js/svtplugin/svt-plugin.js', __FILE__ );
+
+			return $plugin_array;
+		}
+
+		/**
+		 * Add action on custom buttons to Tinymce
+		 *
+		 * @param $buttons
+		 *
+		 * @return mixed
+		 */
+		function svt_register_buttons( $buttons ) {
+			array_push( $buttons, 'svtimeline', "svtevent" ); // dropcap', 'recentposts
+			return $buttons;
+		}
+
+		/**
+		 * add style
+		 */
+		function add_js() {
+			// Respects SSL, Style.css is relative to the current file
+			wp_register_script( 'svt-script', plugins_url( 'js/svt-animation.js', __FILE__ ), array( 'jquery' ) );
+			wp_enqueue_script( 'svt-script' );
+		}
+
+
+		/**
+		 * add style
+		 */
+		function add_stylesheet() {
+			// Respects SSL, Style.css is relative to the current file
+			wp_register_style( 'svt-style', plugins_url( 'css/simple-vertical-timeline.css', __FILE__ ) );
+			wp_register_style( 'svt-linearicons', plugins_url( 'img/linearicons/style.css', __FILE__ ) );
+
+			wp_enqueue_style( 'svt-style' );
+			wp_enqueue_style( 'svt-linearicons' );
+		}
+
+		/**
+		 * Add short code for the single event
+		 *
+		 * @param $atts
+		 * @param null $content
+		 *
+		 * @return string
+		 */
+		function add_shortcode_event( $atts, $content = null ) {
+			// Attributes
+			$atts = shortcode_atts(
+				array(
+					'icon'         => plugins_url( 'img/cd-icon-location.svg', __FILE__ ),
+					'title'        => '',
+					'date'         => date( "Y-m-d H:i" ),
+					'class'        => 'svt-cd-green',
+					'button_label' => 'More',
+					'button_link'  => ''
+				),
+				$atts,
+				'svt-event'
+			);
+
+			if ( ! empty( $atts['button_link'] ) ) {
+				$buttons = '<a href="' . $atts['button_link'] . '" class="svt-cd-read-more" target="_new">' . $atts['button_label'] . '</a>';
+			} else {
+				$buttons = '';
+			} // none now <a href="#0" class="svt-cd-read-more">pluto</a>';
+
+			return ' 
  		<div class="svt-cd-timeline-block">
- 		    <a name="'.urlencode($atts['title']).'"></a>
-			<div class="svt-cd-timeline-img '.$atts['class'].' is-hidden">
-				<img src="'.$atts['icon'].'" alt="Picture">
+ 		    <a name="' . urlencode( $atts['title'] ) . '"></a>
+			<div class="svt-cd-timeline-img ' . $atts['class'] . ' is-hidden">
+				<img src="' . $atts['icon'] . '" alt="Picture">
 			</div> <!-- svt-cd-timeline-img -->
 
 			<div class="svt-cd-timeline-content is-hidden">
-				<h2>'.$atts['title'].' '.$this->add_share_code($atts,$content).'</h2>'
-				.do_shortcode($content).'<br>
-				'.$buttons.'
-				<span class="svt-cd-date">'.$atts['date'].'</span>
+				<h2>' . $atts['title'] . ' ' . $this->add_share_code( $atts, $content ) . '</h2>'
+			       . do_shortcode( $content ) . '<br>
+				' . $buttons . '
+				<span class="svt-cd-date">' . $atts['date'] . '</span>
 			</div> <!-- svt-cd-timeline-content -->
 		</div> <!-- svt-cd-timeline-block -->
 		';
 
-	}
+		}
 
-	/**
-	 * Add shortcode on the events
-	 *
-	 * @param $atts
-	 */
-	function add_share_code($atts,$content){
+		/**
+		 * Add shortcode on the events
+		 *
+		 * @param $atts
+		 */
+		function add_share_code( $atts, $content ) {
 
-		// Get Post Thumbnail for pinterest
-		$crunchifyThumbnail = null;
+			// Get Post Thumbnail for pinterest
+			$crunchifyThumbnail = null;
 
-		$image_evento   = $this->recupera_immagine($content);
-		if ( empty($image_evento) ){
-			$thumbnail_object = get_post(get_post_thumbnail_id(get_the_ID()));
-			$image_articolo = $thumbnail_object->guid;
+			$image_evento = $this->recupera_immagine( $content );
+			if ( empty( $image_evento ) ) {
+				$thumbnail_object = get_post( get_post_thumbnail_id( get_the_ID() ) );
+				$image_articolo   = $thumbnail_object->guid;
 
-			if ( !empty($image_articolo) ){
-				$crunchifyThumbnail= $image_articolo;
+				if ( ! empty( $image_articolo ) ) {
+					$crunchifyThumbnail = $image_articolo;
+				}
+
+			} else {
+				$crunchifyThumbnail = $image_evento;
 			}
 
-		}else{
-			$crunchifyThumbnail= $image_evento;
+			// Get current page URL
+			$crunchifyURL = urlencode( wp_get_shortlink() . '#' . urlencode( $atts['title'] ) );
+
+			// Get current page title
+			$crunchifyTitle = substr( urlencode( strip_tags( $content ) ), 0, 135 - strlen( $crunchifyURL ) );
+
+			if ( empty( $crunchifyTitle ) ) {
+				$crunchifyTitle = urlencode( get_the_title() );
+			}
+
+			// Construct sharing URL without using any script
+			$twitterURL = 'https://twitter.com/intent/tweet?text=' . $crunchifyTitle . '&amp;url=' . $crunchifyURL;
+
+			$facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=' . $crunchifyURL;
+
+			$googleURL = 'https://plus.google.com/share?url=' . $crunchifyURL;
+
+			$whatsappURL = 'whatsapp://send?text=' . $crunchifyTitle . ' ' . $crunchifyURL;
+
+			$linkedInURL = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $crunchifyURL . '&amp;title=' . $crunchifyTitle;
+
+			// Based on popular demand added Pinterest too
+			$pinterestURL = 'https://pinterest.com/pin/create/button/?url=' . $crunchifyURL . '&amp;media=' . $crunchifyThumbnail . '&amp;description=' . $crunchifyTitle;
+
+			// Add sharing button at the end of page/page content
+			$content = '<span class="svt-share">';
+			$content .= ' <span class="lnr lnr-link svt-share-icon"/>';
+			$content .= ' <span class="svt-sharebox">';
+			$content .= '<a href="' . $twitterURL . '" target="_blank"><img src="' . plugins_url( '/img/share/twitter.svg', __FILE__ ) . '" alt="Twitter"></a>';
+			$content .= '<a href="' . $facebookURL . '" target="_blank"><img src="' . plugins_url( '/img/share/facebook.svg', __FILE__ ) . '" alt="Facebook"></a>';
+			$content .= '<a href="' . $whatsappURL . '" target="_blank"><img src="' . plugins_url( '/img/share/whatsapp.svg', __FILE__ ) . '" alt="WhatsApp"></a>';
+			$content .= '<a href="' . $googleURL . '" target="_blank"><img src="' . plugins_url( '/img/share/googleplus.svg', __FILE__ ) . '" alt="Google+"></a>';
+			$content .= '<a href="' . $linkedInURL . '" target="_blank"><img src="' . plugins_url( '/img/share/linkedin.svg', __FILE__ ) . '" alt="LinkedIn"></a>';
+			$content .= '<a href="' . $pinterestURL . '" target="_blank"><img src="' . plugins_url( '/img/share/pinterest.svg', __FILE__ ) . '" alt="Pin It"></a>';
+			$content .= ' </span>';
+			$content .= '</span>';
+
+			return $content;
+
 		}
 
-		// Get current page URL
-		$crunchifyURL = urlencode( wp_get_shortlink().'#'.urlencode($atts['title']));
+		function recupera_immagine( $content ) {
+			$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches );
+			$out    = null;
+			if ( $output != 0 ) {
+				$out = $matches[1][0];
+			}
 
-		// Get current page title
-		$crunchifyTitle = substr(urlencode(strip_tags($content)), 0, 135 - strlen($crunchifyURL) );
-
-		if (empty($crunchifyTitle)){
-			$crunchifyTitle=urlencode(get_the_title());
+			return $out;
 		}
 
-		// Construct sharing URL without using any script
-		$twitterURL = 'https://twitter.com/intent/tweet?text='.$crunchifyTitle.'&amp;url='.$crunchifyURL;
 
-		$facebookURL = 'https://www.facebook.com/sharer/sharer.php?u='.$crunchifyURL;
+		/**
+		 * Add the shortcode for the full time line
+		 *
+		 * @param $atts
+		 * @param null $content
+		 *
+		 * @return string
+		 */
+		function add_shortcode_timeline( $atts, $content = null ) {
 
-		$googleURL = 'https://plus.google.com/share?url='.$crunchifyURL;
+			$atts = shortcode_atts(
+				array(
+					'id' => uniqid( "svt-cd-timeline-" )
+				),
+				$atts,
+				'svtimeline'
+			);
 
-		$whatsappURL = 'whatsapp://send?text='.$crunchifyTitle . ' ' . $crunchifyURL;
+			$out = '<section id="svt-cd-timeline" class="svt-cd-container">' . do_shortcode( $content ) . '</section> <!-- cd-timeline -->';
+			$out .= '<div style=\'' . SVT_Settings::get_sign() . '\'>powered by <a href="http://www.staniscia.net/simple-vertical-timeline/">SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div></div>';
 
-		$linkedInURL = 'https://www.linkedin.com/shareArticle?mini=true&url='.$crunchifyURL.'&amp;title='.$crunchifyTitle;
-
-		// Based on popular demand added Pinterest too
-		$pinterestURL = 'https://pinterest.com/pin/create/button/?url='.$crunchifyURL.'&amp;media='.$crunchifyThumbnail.'&amp;description='.$crunchifyTitle;
-
-		// Add sharing button at the end of page/page content
-		$content  = '<span class="svt-share">';
-		$content .= ' <span class="lnr lnr-link svt-share-icon"/>';
-		$content .= ' <span class="svt-sharebox">';
-		$content .= '<a href="'. $twitterURL .'" target="_blank"><img src="'.plugins_url('/img/share/twitter.svg', __FILE__).'" alt="Twitter"></a>';
-		$content .= '<a href="'.$facebookURL.'" target="_blank"><img src="'.plugins_url('/img/share/facebook.svg', __FILE__).'" alt="Facebook"></a>';
-		$content .= '<a href="'.$whatsappURL.'" target="_blank"><img src="'.plugins_url('/img/share/whatsapp.svg', __FILE__).'" alt="WhatsApp"></a>';
-		$content .= '<a href="'.$googleURL.'" target="_blank"><img src="'.plugins_url('/img/share/googleplus.svg', __FILE__).'" alt="Google+"></a>';
-		$content .= '<a href="'.$linkedInURL.'" target="_blank"><img src="'.plugins_url('/img/share/linkedin.svg', __FILE__).'" alt="LinkedIn"></a>';
-		$content .= '<a href="'.$pinterestURL.'" target="_blank"><img src="'.plugins_url('/img/share/pinterest.svg', __FILE__).'" alt="Pin It"></a>';
-		$content .= ' </span>';
-		$content .= '</span>';
-
-		return $content;
-
-	}
-
-	function recupera_immagine($content) {
-		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
-		$out=null;
-		if ($output!=0){
-			$out=$matches[1][0];
+			return $out;
 		}
-		return $out;
-	}
 
+	}/// end class
 
-	/**
-	 * Add the shortcode for the full time line
-	 *
-	 * @param $atts
-	 * @param null $content
-	 *
-	 * @return string
-	 */
-	function add_shortcode_timeline( $atts , $content = null ) {
-
-		$atts = shortcode_atts(
-			array(
-				'id' => uniqid("svt-cd-timeline-")
-			),
-			$atts,
-			'svtimeline'
-		);
-
-		$out= '<section id="svt-cd-timeline" class="svt-cd-container">'.do_shortcode($content).'</section> <!-- cd-timeline -->';
-		$out .= '<div style=\'' . SVT_Settings::get_sign() . '\'>powered by <a href="http://www.staniscia.net/simple-vertical-timeline/">SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div></div>';
-		
-		return $out;
-	}
-
-}/// end class
-
-
+}
 
 // Instantiate our class
 $Simple_Vertical_Timeline = Simple_Vertical_Timeline::getInstance();

@@ -1,3 +1,19 @@
+.tabcontent pre.codestyle {
+  border: 1px solid #e1e1e1;
+  overflow: auto;
+  box-shadow: 1px 3px 6px 0px #e1e1e1;
+  padding: 3px;
+  background-color: #e1e1e1;
+  color: #000000; }
+
+.ast_container_promotion .adv_button {
+  display: block;
+  background: no-repeat 5px 50%;
+  text-decoration: none;
+  padding: 4px 4px 4px 4px; }
+  .ast_container_promotion .adv_button:hover {
+    border-color: gainsboro;
+    border-bottom-width: 4px; }
 .ast_container_promotion .sm_button {
   display: block;
   padding: 4px 4px 4px 25px;
