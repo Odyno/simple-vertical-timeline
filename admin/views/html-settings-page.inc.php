@@ -207,7 +207,7 @@ Check the following sections to discover all the feature that you can use.
                  href="https://wordpress.org/support/view/plugin-reviews/simple-vertical-timeline?rate=5#postform"
                  target="_blank"><span class="dashicons dashicons-star-filled"></span> <?php _e('Rate the plugin on WordPress.org', 'svt') ?></a>
 
-              <a class="adv_button " href=""><span class="dashicons dashicons-wordpress"></span> Check it on Wordpress.org</a>
+              <a class="adv_button " href="https://wordpress.org/plugins/simple-vertical-timeline/" target="_blank"><span class="dashicons dashicons-wordpress"></span> Check it on Wordpress.org</a>
 
 
             </div>
@@ -222,9 +222,9 @@ Check the following sections to discover all the feature that you can use.
               <a class="sm_button flag_en"
                  href="mailto://alessandro@staniscia.net" target="_blank">Alessandro
                 Staniscia</a>
-              <a class="sm_button flag_it"
+             <!--  <a class="sm_button flag_it"
                  href="mailto://alessandro@staniscia.net" target="_blank">Alessandro
-                Staniscia</a>
+                Staniscia</a> -->
             </div>
           </div>
 

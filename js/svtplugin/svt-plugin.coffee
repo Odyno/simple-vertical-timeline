@@ -37,6 +37,17 @@ do ->
 
 
       ed.addCommand 'svtevent', ->
+        today = new Date
+        dd = today.getDate()
+        mm = today.getMonth() + 1
+        #January is 0!
+        yyyy = today.getFullYear()
+        if dd < 10
+          dd = '0' + dd
+        if mm < 10
+          mm = '0' + mm
+
+
         ed.windowManager.open
           title: 'Insert Timeline Events'
           body: [
@@ -57,6 +68,8 @@ do ->
               type: 'textbox'
               name: 'date'
               label: 'Date:'
+              value: dd + '/' + mm + '/' + yyyy
+
             }
             {
               type: 'listbox'
@@ -81,18 +94,7 @@ do ->
             if e.data.date? and e.data.date!=''
               date=' date="' + e.data.date + '" '
             else
-              today = new Date
-              dd = today.getDate()
-              mm = today.getMonth() + 1
-              #January is 0!
-              yyyy = today.getFullYear()
-              if dd < 10
-                dd = '0' + dd
-              if mm < 10
-                mm = '0' + mm
-
-              date=' date="'+dd + '/' + mm + '/' + yyyy+'" '
-
+              date=' date=""'
 
             if e.data.style? and e.data.style!=''
               style=' class="' + e.data.style + '" '
