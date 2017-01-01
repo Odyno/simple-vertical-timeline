@@ -57,12 +57,12 @@ Modules - reusable parts of our design
     display: table;
     clear: both; }
 
-#svt-cd-timeline {
+.svt-cd-timeline {
   position: relative;
   padding: 2em 0;
   margin-top: 2em;
   margin-bottom: 2em; }
-  #svt-cd-timeline::before {
+  .svt-cd-timeline::before {
     /* this is the vertical line */
     content: '';
     position: absolute;
@@ -72,10 +72,10 @@ Modules - reusable parts of our design
     width: 4px;
     background: #d7e4ed; }
   @media only screen and (min-width: 1170px) {
-    #svt-cd-timeline {
+    .svt-cd-timeline {
       margin-top: 3em;
       margin-bottom: 3em; }
-      #svt-cd-timeline::before {
+      .svt-cd-timeline::before {
         left: 50%;
         margin-left: -2px; } }
 

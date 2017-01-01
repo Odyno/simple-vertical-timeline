@@ -20,8 +20,6 @@ along with Simple Vertical Timeline. If not, see https://www.gnu.org/licenses/ol
 */
 
 
-
-
 if( !defined( 'SVT_VER' ) )
 	/**
 	 *
@@ -77,7 +75,9 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		 * Installation. Runs on activation.
 		 */
 		public function on_activation() {
-			update_option( SVT_Settings::OPTION_ANALITYCS, true );
+		    update_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA, true);
+
+            update_option( SVT_Settings::OPTION_ANALITYCS, true );
 			update_option( SVT_Settings::OPTION_SIGNE, true );
 		}
 
@@ -85,7 +85,9 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		 * Deactivation Function
 		 */
 		public function on_deactivation() {
-			delete_option( SVT_Settings::OPTION_ANALITYCS );
+            delete_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA, true);
+
+            delete_option( SVT_Settings::OPTION_ANALITYCS );
 			delete_option( SVT_Settings::OPTION_SIGNE );
 		}
 
@@ -163,10 +165,10 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		function add_stylesheet() {
 			// Respects SSL, Style.css is relative to the current file
 			wp_register_style( 'svt-style', plugins_url( 'css/simple-vertical-timeline.css', __FILE__ ) );
-			wp_register_style( 'svt-linearicons', plugins_url( 'img/linearicons/style.css', __FILE__ ) );
+			//wp_register_style( 'svt-linearicons', plugins_url( 'img/linearicons/style.css', __FILE__ ) );
 
 			wp_enqueue_style( 'svt-style' );
-			wp_enqueue_style( 'svt-linearicons' );
+			//wp_enqueue_style( 'svt-linearicons' );
 		}
 
 		/**
@@ -222,6 +224,10 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		 * @param $atts
 		 */
 		function add_share_code( $atts, $content ) {
+           $content="";
+
+
+
 
 			// Get Post Thumbnail for pinterest
 			$crunchifyThumbnail = null;
@@ -240,7 +246,8 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 			}
 
 			// Get current page URL
-			$crunchifyURL = urlencode( wp_get_shortlink() . '#' . urlencode( $atts['title'] ) );
+            $planUrl=   wp_get_shortlink() . '#' . urlencode( $atts['title'] );
+			$crunchifyURL = urlencode( $planUrl );
 
 			// Get current page title
 			$crunchifyTitle = substr( urlencode( strip_tags( $content ) ), 0, 135 - strlen( $crunchifyURL ) );
@@ -249,32 +256,36 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 				$crunchifyTitle = urlencode( get_the_title() );
 			}
 
-			// Construct sharing URL without using any script
-			$twitterURL = 'https://twitter.com/intent/tweet?text=' . $crunchifyTitle . '&amp;url=' . $crunchifyURL;
-
-			$facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=' . $crunchifyURL;
-
-			$googleURL = 'https://plus.google.com/share?url=' . $crunchifyURL;
-
-			$whatsappURL = 'whatsapp://send?text=' . $crunchifyTitle . ' ' . $crunchifyURL;
-
-			$linkedInURL = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $crunchifyURL . '&amp;title=' . $crunchifyTitle;
-
-			// Based on popular demand added Pinterest too
-			$pinterestURL = 'https://pinterest.com/pin/create/button/?url=' . $crunchifyURL . '&amp;media=' . $crunchifyThumbnail . '&amp;description=' . $crunchifyTitle;
 
 			// Add sharing button at the end of page/page content
 			$content = '<span class="svt-share">';
 			$content .= ' <span class="lnr lnr-link svt-share-icon"/>';
 			$content .= ' <span class="svt-sharebox">';
-			$content .= '<a href="' . $twitterURL . '" target="_blank"><img src="' . plugins_url( '/img/share/twitter.svg', __FILE__ ) . '" alt="Twitter"></a>';
-			$content .= '<a href="' . $facebookURL . '" target="_blank"><img src="' . plugins_url( '/img/share/facebook.svg', __FILE__ ) . '" alt="Facebook"></a>';
-			$content .= '<a href="' . $whatsappURL . '" target="_blank"><img src="' . plugins_url( '/img/share/whatsapp.svg', __FILE__ ) . '" alt="WhatsApp"></a>';
-			$content .= '<a href="' . $googleURL . '" target="_blank"><img src="' . plugins_url( '/img/share/googleplus.svg', __FILE__ ) . '" alt="Google+"></a>';
-			$content .= '<a href="' . $linkedInURL . '" target="_blank"><img src="' . plugins_url( '/img/share/linkedin.svg', __FILE__ ) . '" alt="LinkedIn"></a>';
-			$content .= '<a href="' . $pinterestURL . '" target="_blank"><img src="' . plugins_url( '/img/share/pinterest.svg', __FILE__ ) . '" alt="Pin It"></a>';
+            if ( get_option(SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA) == "1" ) {
+
+
+              // Construct sharing URL without using any script
+              $twitterURL = 'https://twitter.com/intent/tweet?text=' . $crunchifyTitle . '&amp;url=' . $crunchifyURL;
+              $facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=' . $crunchifyURL;
+              $googleURL = 'https://plus.google.com/share?url=' . $crunchifyURL;
+              $whatsappURL = 'whatsapp://send?text=' . $crunchifyTitle . ' ' . $crunchifyURL;
+              $linkedInURL = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $crunchifyURL . '&amp;title=' . $crunchifyTitle;
+              $pinterestURL = 'https://pinterest.com/pin/create/button/?url=' . $crunchifyURL . '&amp;media=' . $crunchifyThumbnail . '&amp;description=' . $crunchifyTitle;
+
+
+              $content .= '<a href="' . $twitterURL . '" target="_blank"><img src="' . plugins_url('/img/share/twitter.svg', __FILE__) . '" alt="Twitter"></a>';
+              $content .= '<a href="' . $facebookURL . '" target="_blank"><img src="' . plugins_url('/img/share/facebook.svg', __FILE__) . '" alt="Facebook"></a>';
+              $content .= '<a href="' . $whatsappURL . '" target="_blank"><img src="' . plugins_url('/img/share/whatsapp.svg', __FILE__) . '" alt="WhatsApp"></a>';
+              $content .= '<a href="' . $googleURL . '" target="_blank"><img src="' . plugins_url('/img/share/googleplus.svg', __FILE__) . '" alt="Google+"></a>';
+              $content .= '<a href="' . $linkedInURL . '" target="_blank"><img src="' . plugins_url('/img/share/linkedin.svg', __FILE__) . '" alt="LinkedIn"></a>';
+              $content .= '<a href="' . $pinterestURL . '" target="_blank"><img src="' . plugins_url('/img/share/pinterest.svg', __FILE__) . '" alt="Pin It"></a>';
+            }
+
+            $content .= ' <a href="#" onclick="window.prompt(\'Copy this link:\', \''.$planUrl.'\')" ><img src="' . plugins_url( '/img/share/external-link.svg', __FILE__ ) . '" alt="external link"></a>';
 			$content .= ' </span>';
 			$content .= '</span>';
+
+
 
 			return $content;
 
@@ -309,7 +320,7 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 				'svtimeline'
 			);
 
-			$out = '<section id="svt-cd-timeline" class="svt-cd-container">' . do_shortcode( $content ) . '</section> <!-- cd-timeline -->';
+			$out = '<section class="svt-cd-timeline svt-cd-container">' . do_shortcode( $content ) . '</section> <!-- cd-timeline -->';
 			$out .= '<div style=\'' . SVT_Settings::get_sign() . '\'>powered by <a href="http://www.staniscia.net/simple-vertical-timeline/">SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div></div>';
 
 			return $out;

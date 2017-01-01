@@ -3,8 +3,8 @@ Contributors: Odyno
 Tags: responsive timeline, Responsive Timeline WordPress,Timeline for WordPress, Timeline, vertical, timeline, animated, css3, animations, evan, herman, evan herman, easy, time, line, font awesome, font, awesome, announcements, notifications, simple, events, calendar, scroll, triggered, scrolling, animated, fade, in, fade in, timeline, timelines, timelineJS, journalism tool
 Donate link: http://www.staniscia.net/donate
 Requires at least: 3.4.2
-Tested up to: 4.6
-Stable tag: 0.0.2
+Tested up to: 4.7
+Stable tag: 0.0.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,7 @@ Follow me to discover this new feature for your your wordpress.
 
 = Quick start, your first timeline =
 I explain how to do the timeline with a simple example, the timeline of plugin! First to all we need to open a new Article or Page. In your "Visual editor" you can discovery 2 new buttons:
+
 * The button "Simple Vertical Timeline"
 * The button "Event for Simple Vertical Timeline"
 
@@ -92,8 +93,9 @@ None
 * I18n
 
 = 0.0.3 =
-* Removed the autodate fill
+* Added anchor foreach event
 * New share icons
+* Removed the auto date fill
 * New settings page with help
 
 

@@ -2,3 +2,4 @@
 /**/*.scss     export-ignore
 /**/*.coffee   export-ignore
 /deploy.sh     export-ignore
+/node_modules  export-ignore
