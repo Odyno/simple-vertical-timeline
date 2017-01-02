@@ -4,7 +4,7 @@ Tags: responsive timeline, Responsive Timeline WordPress,Timeline for WordPress,
 Donate link: http://www.staniscia.net/donate
 Requires at least: 3.4.2
 Tested up to: 4.7
-Stable tag: 0.0.5
+Stable tag: 0.0.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,7 +92,7 @@ None
 = ToDo =
 * I18n
 
-= 0.0.3 =
+= 0.0.6 =
 * Added anchor foreach event
 * New share icons
 * Removed the auto date fill
