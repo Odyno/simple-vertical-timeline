@@ -132,7 +132,9 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		 * @return mixed
 		 */
 		function svt_add_buttons( $plugin_array ) {
-			$plugin_array['svt'] = plugins_url( 'js/svtplugin/svt-plugin.js', __FILE__ );
+          $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.js' : '.min.js';
+
+          $plugin_array['svt'] = plugins_url( 'js/svtplugin/svt-plugin'.$suffix, __FILE__ );
 
 			return $plugin_array;
 		}
@@ -153,8 +155,10 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		 * add style
 		 */
 		function add_js() {
-			// Respects SSL, Style.css is relative to the current file
-			wp_register_script( 'svt-script', plugins_url( 'js/svt-animation.js', __FILE__ ), array( 'jquery' ) );
+          $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.js' : '.min.js';
+
+          // Respects SSL, Style.css is relative to the current file
+			wp_register_script( 'svt-script', plugins_url( 'js/svt-animation'.$suffix, __FILE__ ), array( 'jquery' ) );
 			wp_enqueue_script( 'svt-script' );
 		}
 
@@ -163,12 +167,9 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		 * add style
 		 */
 		function add_stylesheet() {
-			// Respects SSL, Style.css is relative to the current file
-			wp_register_style( 'svt-style', plugins_url( 'css/simple-vertical-timeline.css', __FILE__ ) );
-			//wp_register_style( 'svt-linearicons', plugins_url( 'img/linearicons/style.css', __FILE__ ) );
-
-			wp_enqueue_style( 'svt-style' );
-			//wp_enqueue_style( 'svt-linearicons' );
+          $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.css' : '.min.css';
+          wp_register_style( 'svt-style', plugins_url( 'css/simple-vertical-timeline'.$suffix, __FILE__ ) );
+          wp_enqueue_style( 'svt-style' );
 		}
 
 		/**

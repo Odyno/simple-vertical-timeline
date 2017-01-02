@@ -1,4 +1,3 @@
-do ->
 
   tinymce.create 'tinymce.plugins.svt',
     ##
@@ -144,4 +143,3 @@ do ->
 
   # Register plugin
   tinymce.PluginManager.add 'svt', tinymce.plugins.svt
-  return

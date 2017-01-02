@@ -47,7 +47,9 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 		}
 
 		public function register_settings_style() {
-			wp_register_style( 'svt-admin-style', plugins_url( "/admin/css/admin-style.css", __SVT_FILE__ ) );
+          $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.css' : '.min.css';
+
+          wp_register_style( 'svt-admin-style', plugins_url( "/admin/css/admin-style".$suffix, __SVT_FILE__ ) );
 		}
 
 

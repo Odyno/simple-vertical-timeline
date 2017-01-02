@@ -11,20 +11,33 @@ Follow me to discover this new feature for your your wordpress.
 
 ### Quick start, your first timeline 
 I explain how to do the timeline with a simple example, the timeline of plugin! First to all we need to open a new Article or Page. In your "Visual editor" you can discovery 2 new buttons:
-* The button "Simple Vertical Timeline"
-* The button "Event for Simple Vertical Timeline"
+*   The button "Simple Vertical Timeline"
+*   The button "Event for Simple Vertical Timeline"
+
+![GitHub Logo](/assets/screenshot-1.png)
+
 
 ### STEP A 
 The button "Simple Vertical Timeline"  allow you to create the main vertical line were all of your events will be placed... so select one place on your article and click on this button: two new shortcode will be added in the palace selected. This is your first step! you have create the tempo line!
 
+![GitHub Logo](/assets/screenshot-2.jpg)
+
 ### STEP B 
 The button "Event for Simple Vertical Timeline" add a new event in the tempo line. It's very easy, move the pointer into the new element already created and click on it. One dialog will ask you to decide the title, just a quick starting note, the date and the color of node in the time line.
+
+![GitHub Logo](/assets/screenshot-3.jpg)
+
 The result is the same of previous button, one shortcode will be added on the place of mouse and the new event with all the information will be shown on the page
+
+![GitHub Logo](/assets/screenshot-4.jpg)
 
 ### ... IS IT ALL?
 Yes and no, if you don't want to customise the timeline, that's all. But if you want you can try to customise the event as you want. Now all the short code are on place and it's only up to you to add event or custom comment.
 Enjoy
 
+Reposive View | Shares links
+------------ | -------------
+![GitHub Logo](/assets/screenshot-5.jpg) | ![GitHub Logo](/assets/screenshot-6.png)
 
 ## Installation 
 "Simple Vertical Timeline" can be installed using integrated WordPress plugin installer or manually.
