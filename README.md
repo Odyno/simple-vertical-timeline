@@ -2,7 +2,7 @@
 
 Allow to create a  Simple Vertical Timeline on the current blog.
 
-[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/simple-vertical-timeline.svg)]() [![WordPress](https://img.shields.io/wordpress/v/simple-vertical-timeline.svg)]() [![WordPress rating](https://img.shields.io/wordpress/plugin/r/simple-vertical-timeline.svg)]()
+[![WordPress](https://img.shields.io/wordpress/v/simple-vertical-timeline.svg)]() [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/simple-vertical-timeline.svg)]() [![WordPress rating](https://img.shields.io/wordpress/plugin/r/simple-vertical-timeline.svg)]()
 
 ## Description 
 Simple Vertical Timeline is a simple plugin that allow you to create a timeline in your Article or Page.
@@ -35,7 +35,7 @@ The result is the same of previous button, one shortcode will be added on the pl
 Yes and no, if you don't want to customise the timeline, that's all. But if you want you can try to customise the event as you want. Now all the short code are on place and it's only up to you to add event or custom comment.
 Enjoy
 
-Reposive View | Shares links
+Resposive View | Shares links
 ------------ | -------------
 ![GitHub Logo](/assets/screenshot-5.jpg) | ![GitHub Logo](/assets/screenshot-6.png)
 
@@ -45,7 +45,7 @@ Reposive View | Shares links
 ### Integrated WordPress plugin installer method
 
 * Go to Plugins > Add New.
-* Under Search, type in ’Simple Vertical Timeline’.
+* Under Search, type in `Simple Vertical Timeline`.
 * Click Install Now to install the WordPress Plugin.
 * A popup window will ask you to confirm your wish to install the Plugin.
 * If this is the first time you've installed a WordPress Plugin, enter the FTP login credential information. If you've installed a Plugin before, it will still have the login information.
@@ -54,8 +54,8 @@ Reposive View | Shares links
 
 ### Manual method
 
-* Upload ’Simple Vertical Timeline’ folder from simple-vertical-timeline.zip file downloaded from Simple Vertical Timeline WordPress plugin directory page to the ’/wp-content/plugins/’ directory.
-* Activate ’Simple Vertical Timeline’ plugin through the ’Plugins’ menu in WordPress.
+* Upload `Simple Vertical Timeline` folder from simple-vertical-timeline.zip file downloaded from Simple Vertical Timeline WordPress plugin directory page to the `/wp-content/plugins/` directory.
+* Activate `Simple Vertical Timeline` plugin through the `Plugins` menu in WordPress.
 
 
 ## Credits
