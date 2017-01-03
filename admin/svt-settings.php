@@ -76,9 +76,9 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 		public function add_section_socialmedia() {
           add_settings_section(
             SVT_Settings::PAGE_SETTING . "_SocialMedia", //String for use in the 'id' attribute of tags.
-            __( '', 'svt' ),                //Title of the section
+            __( ' ', 'svt' ),                //Title of the section
             function ($args){
-              _e( '', 'svt');
+              _e( ' ', 'svt');
             },  //Function that fills the section with the desired content. The function should echo its output.
             SVT_Settings::PAGE_ID            //The type of settings page on which to show the section
           );
@@ -103,7 +103,7 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 			//Build new Section
 			add_settings_section(
 				SVT_Settings::PAGE_SETTING . "_ADV",                 //String for use in the 'id' attribute of tags.
-				__( '', 'svt' ),                              //Title of the section
+				__( ' ', 'svt' ),                              //Title of the section
 				array(
 					$this,
 					'get_HTML_ADV_description'

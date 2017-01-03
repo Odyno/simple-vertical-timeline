@@ -66,15 +66,15 @@
 
             <div id="information_tab" class="tabcontent">
               <p><?php
-                _e(' Simple Vertical Timeline is a simple plugin that allow you to create a timeline in your Blog or Page. You can decide to add it via shortcode or via useful and simple buttons in your editor. Follow me to discover this new feature for your WordPress. <h1>QUICK START, YOUR FIRST TIMELINE</h1> I explain how to do the timeline with a simple example, the timeline of plugin! First to all we need to open a new Article or Page. In your “Visual editor” you can discover 2 new buttons:','svt');
+                _e(' Simple Vertical Timeline is a simple plugin that allow you to create a timeline in your Blog or Page. You can decide to add it via shortcode or via useful and simple buttons in your editor. Follow me to discover this new feature for your WordPress. <h1>QUICK START, YOUR FIRST TIMELINE</h1> I explain how to do the timeline with a simple example, the timeline of plugin! First to all we need to open a new Article or Page. In your "Visual editor" you can discover 2 new buttons:','svt');
                 echo '<img src="' . esc_url( plugins_url( 'assets/screenshot-1.png', __SVT_FILE__ ) ) . '" width="100%" style="margin: 10px; border: 1px solid #efefef;" > ';
-                _e('<h2>STEP A</h2> The button “Simple Vertical Timeline”  allow you to create the main vertical line were all of your events will be placed… so select one place on your article and click on this button: two new shortcode will be added in the palace selected. This is your first step! you have create the tempo line! ', 'svt');
+                _e('<h2>STEP A</h2> The button "Simple Vertical Timeline"  allow you to create the main vertical line were all of your events will be placed... so select one place on your article and click on this button: two new shortcode will be added in the palace selected. This is your first step! you have create the tempo line! ', 'svt');
                 echo '<img src="' . esc_url( plugins_url( 'assets/screenshot-2.jpg', __SVT_FILE__ ) ) . '" width="100%" style="margin: 10px; border: 1px solid #efefef;" > ';
-                _e('<h2>STEP B</h2> The button “Event for Simple Vertical Timeline” add a new event in the tempo line. It’s very easy, move the pointer into the new element already created and click on it. One dialog will ask you to decide the title, just a quick starting note, the date and the color of node in the time line. ', 'svt');
+                _e('<h2>STEP B</h2> The button "Event for Simple Vertical Timeline" add a new event in the tempo line. It\'s very easy, move the pointer into the new element already created and click on it. One dialog will ask you to decide the title, just a quick starting note, the date and the color of node in the time line. ', 'svt');
                 echo '<img src="' . esc_url( plugins_url( 'assets/screenshot-3.jpg', __SVT_FILE__ ) ) . '" width="100%" style="margin: 10px; border: 1px solid #efefef;" > ';
                 _e('The result is the same of previous button, one shortcode will be added on the place of mouse and the new event with all the information will be showed on the page ', 'svt');
                 echo '<img src="' . esc_url( plugins_url( 'assets/screenshot-4.jpg', __SVT_FILE__ ) ) . '" width="100%" style="margin: 10px; border: 1px solid #efefef;" > ';
-                _e('<h2>… IS IT ALL?</h2> Yes, if you don’t want to customise the timeline, that’s all. But if you want you can try to customise the event as you want. Now all the short code are on place and it’s only up to you to add event or custom comment. Enjoy', 'svt');
+                _e('<h2>... IS IT ALL?</h2> Yes, if you don\'t want to customise the timeline, that\'s all. But if you want you can try to customise the event as you want. Now all the short code are on place and it\'s only up to you to add event or custom comment. Enjoy', 'svt');
                 ?></p>
             </div>
 
@@ -204,9 +204,9 @@ Check the following sections to discover all the feature that you can use.
               <a class="sm_button flag_en"
                  href="mailto://alessandro@staniscia.net" target="_blank">Alessandro
                 Staniscia</a>
-             <!--  <a class="sm_button flag_it"
+              <a class="sm_button flag_it"
                  href="mailto://alessandro@staniscia.net" target="_blank">Alessandro
-                Staniscia</a> -->
+                Staniscia</a>
             </div>
           </div>
 

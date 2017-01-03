@@ -1,0 +1,206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the simple-vertical-timeline package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-vertical-timeline 0.0.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-02 23:29+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: admin/svt-settings.php:38
+msgid "Simple Vertical Timeline Preference"
+msgstr ""
+
+#: admin/svt-settings.php:39
+msgid "Simple Vertical Timeline"
+msgstr ""
+
+#: admin/svt-settings.php:62
+msgid "Settings"
+msgstr ""
+
+#: admin/svt-settings.php:79 admin/svt-settings.php:81
+#: admin/svt-settings.php:106
+msgid " "
+msgstr ""
+
+#: admin/svt-settings.php:89
+msgid "Show extra social media sharing icons"
+msgstr ""
+
+#: admin/svt-settings.php:116
+msgid "Show a little and invisible sign of this plugin ( Thanks! )"
+msgstr ""
+
+#: admin/svt-settings.php:127
+msgid "Enable the tracking of this WordPress installation with anonymous data."
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:69
+msgid ""
+" Simple Vertical Timeline is a simple plugin that allow you to create a "
+"timeline in your Blog or Page. You can decide to add it via shortcode or via "
+"useful and simple buttons in your editor. Follow me to discover this new "
+"feature for your WordPress. <h1>QUICK START, YOUR FIRST TIMELINE</h1> I "
+"explain how to do the timeline with a simple example, the timeline of "
+"plugin! First to all we need to open a new Article or Page. In your \"Visual "
+"editor\" you can discover 2 new buttons:"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:71
+msgid ""
+"<h2>STEP A</h2> The button \"Simple Vertical Timeline\"  allow you to create "
+"the main vertical line were all of your events will be placed... so select "
+"one place on your article and click on this button: two new shortcode will "
+"be added in the palace selected. This is your first step! you have create "
+"the tempo line! "
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:73
+msgid ""
+"<h2>STEP B</h2> The button \"Event for Simple Vertical Timeline\" add a new "
+"event in the tempo line. It's very easy, move the pointer into the new "
+"element already created and click on it. One dialog will ask you to decide "
+"the title, just a quick starting note, the date and the color of node in the "
+"time line. "
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:75
+msgid ""
+"The result is the same of previous button, one shortcode will be added on "
+"the place of mouse and the new event with all the information will be showed "
+"on the page "
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:77
+msgid ""
+"<h2>... IS IT ALL?</h2> Yes, if you don't want to customise the timeline, "
+"that's all. But if you want you can try to customise the event as you want. "
+"Now all the short code are on place and it's only up to you to add event or "
+"custom comment. Enjoy"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:84
+msgid "Example"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:87
+msgid ""
+" What is probably present in your editor looks like this piece of code, here "
+"one time line with with 2 events:\n"
+"<pre class=\"codestyle\">[svtimeline]\n"
+"  [svt-event title=\"Decision time...\" date=\"28/05/2016\"]\n"
+"   Lore ipsum...\n"
+"  [/svt-event]\n"
+"  [svt-event title=\"Decision time...\" date=\"28/05/2016\" class=\"svt-cd-"
+"yellow\" button_link=\"https://.../\" button_label=\" more...\" ]\n"
+"   Lore ipsum...\n"
+"  [/svt-event]\n"
+"[/svtimeline]</pre>\n"
+"Check the following sections to discover all the feature that you can use.\n"
+"\t\t"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:99
+msgid " Short code [svtimeline]"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:100
+msgid ""
+" The <code>[svtimeline] ... [/svtimeline]</code> is the container of timeline"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:101
+msgid "Short code [svt-event] "
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:102
+msgid ""
+"The <code>[svt-event ...] ... [/svt-event]</code>  is used for the "
+"definition of one event and that need to be insert only within the "
+"<em>svtimeline</em> section."
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:105
+msgid "Options"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:106
+msgid "Description"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:110
+msgid "The title of events"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:114
+msgid "The date of event"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:118
+msgid "With this tag you can specify class for the icons or color of button"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:122
+msgid "if specified with one href link then one button appears with this link."
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:126
+msgid ""
+"if specified with one label then the label will be appear on the button."
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:137
+msgid "Save options"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:181
+msgid "Plugin Homepage"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:184
+msgid "Suggest a Feature"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:187
+msgid "Report a Bug"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:190
+msgid "Rate the plugin on WordPress.org"
+msgstr ""
+
+#: admin/views/html-settings-page.inc.php:202
+msgid "Translator"
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-file.php:3
+msgid "I'm a translatable string."
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:4
+msgid "Me too"
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:7
+#, php-format
+msgid "I have %d apple"
+msgid_plural "I have %d apples"
+msgstr[0] ""
+msgstr[1] ""
+
+#. / TRANSLATORS: This should be translated as a shorthand for YEAR-MONTH-DAY using 4, 2 and 2 digits.
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:16
+msgid "yyyy-mm-dd"
+msgstr ""

@@ -3,10 +3,11 @@
 Plugin Name: Simple Vertical Timeline
 Plugin URI: http://www.staniscia.net/simple-vertical-timeline/
 Description: Allow to create a VERY Simple Vertical Timeline on the current blog.
-Version: 0.0.6
+Version: 0.0.7
 Author: Alessandro Staniscia
 Author URI: ttp://www.staniscia.net
 License: GPL2
+Text Domain: svt
 
 
 Simple Vertical Timeline is distributed in the hope that it will be useful,
@@ -24,7 +25,7 @@ if( !defined( 'SVT_VER' ) )
 	/**
 	 *
 	 */
-	define( 'SVT_VER', '0.0.6' );
+	define( 'SVT_VER', '0.0.7' );
 
 
 define('__SVT_FILE__',__FILE__);

@@ -1,6 +1,6 @@
 {
   "name": "simple-vertical-timeline",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Simple Vertical Timeline is a simple plugin that allow you to create a timeline in your Article or Page.",
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "~0.5.0",
     "grunt-contrib-watch": "~0.6.1",
+    "grunt-pot": "^0.3.0",
     "grunt-replace": "^1.0.1"
   }
 }

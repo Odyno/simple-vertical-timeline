@@ -1,0 +1,253 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the simple-vertical-timeline package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-vertical-timeline 0.0.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-03 00:01+0100\n"
+"PO-Revision-Date: 2017-01-03 00:36+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.11\n"
+"Last-Translator: Alessandro Staniscia <alessandro@staniscia.net>\n"
+"Language: it\n"
+
+#: admin/svt-settings.php:38
+msgid "Simple Vertical Timeline Preference"
+msgstr "Simple Vertical Timeline preferenze"
+
+#: admin/svt-settings.php:39
+msgid "Simple Vertical Timeline"
+msgstr "Simple Vertical Timeline"
+
+#: admin/svt-settings.php:62
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: admin/svt-settings.php:79 admin/svt-settings.php:81
+#: admin/svt-settings.php:106
+msgid " "
+msgstr " "
+
+#: admin/svt-settings.php:89
+msgid "Show extra social media sharing icons"
+msgstr "Mostra il menù per lo share tramite social media"
+
+#: admin/svt-settings.php:116
+msgid "Show a little and invisible sign of this plugin ( Thanks! )"
+msgstr "Mostra un piccolo e invisibile firma di questo plugin ( Grazie! )"
+
+#: admin/svt-settings.php:127
+msgid "Enable the tracking of this WordPress installation with anonymous data."
+msgstr ""
+"Abilita il recupero di dati anonimi su questa installazione di Wordpress"
+
+#: admin/views/html-settings-page.inc.php:69
+msgid ""
+" Simple Vertical Timeline is a simple plugin that allow you to create a "
+"timeline in your Blog or Page. You can decide to add it via shortcode or via "
+"useful and simple buttons in your editor. Follow me to discover this new "
+"feature for your WordPress. <h1>QUICK START, YOUR FIRST TIMELINE</h1> I "
+"explain how to do the timeline with a simple example, the timeline of "
+"plugin! First to all we need to open a new Article or Page. In your \"Visual "
+"editor\" you can discover 2 new buttons:"
+msgstr ""
+"Simple Vertical Timeline è un plugin semplice che permette di inserire una "
+"timeline all’interno del tuo Blog/Pagina. Puoi decidere di creare la "
+"timeline  tramite semplici tasti nel tuo editor oppure tramite shortcode. "
+"Seguimi e scopri questa funzionalità per il tuo Blog. <h1>La tua prima "
+"Timeline</h1>Ti spiegherò come fare una timeline tramite un semplice "
+"esempio, la timeline del plugin! Prima di tutto devi aprire una Pagina "
+"oppure un Articolo. Nel “Visual editor” scoprirai due nuovi bottoni:"
+
+#: admin/views/html-settings-page.inc.php:71
+msgid ""
+"<h2>STEP A</h2> The button \"Simple Vertical Timeline\"  allow you to create "
+"the main vertical line were all of your events will be placed... so select "
+"one place on your article and click on this button: two new shortcode will "
+"be added in the palace selected. This is your first step! you have create "
+"the tempo line! "
+msgstr ""
+"<h2>Primo Passo</h2> Il bottone  \"Simple Vertical Timeline\" permette di "
+"creare una barra verticale dove verrano inserite tutti i successivi eventi… "
+"quindi seleziona uno spazio nel tuo articolo click su questo bottone. Due "
+"nuovi shortcode appariranno nel posto selezionato. Questo è il tuo primo "
+"passo! Hai appena creato la “tempo line”!"
+
+#: admin/views/html-settings-page.inc.php:73
+msgid ""
+"<h2>STEP B</h2> The button \"Event for Simple Vertical Timeline\" add a new "
+"event in the tempo line. It's very easy, move the pointer into the new "
+"element already created and click on it. One dialog will ask you to decide "
+"the title, just a quick starting note, the date and the color of node in the "
+"time line. "
+msgstr ""
+"<h2>Secondo Passo</h2> Il bottone “Evento per Simple Vertical Timeline” "
+"aggiunge un nuovo evento all’interno del “tempo line”. E’ veramente "
+"semplice, muovi il cursore all’interno degli elementi appena creati ed "
+"infine click sul bottone. Un nuovo pannello comparirà e chiederà i dati "
+"principali per creare l’evento… dati come il titolo, qualche nota, la data "
+"ecc"
+
+#: admin/views/html-settings-page.inc.php:75
+msgid ""
+"The result is the same of previous button, one shortcode will be added on "
+"the place of mouse and the new event with all the information will be showed "
+"on the page "
+msgstr ""
+"Il risultato è identico al bottone precedentemente selezionato, ma questa "
+"volta lo shortcode introduce un evento proprio nel punto in cui avevi "
+"posizionato il cursore"
+
+#: admin/views/html-settings-page.inc.php:77
+msgid ""
+"<h2>... IS IT ALL?</h2> Yes, if you don't want to customise the timeline, "
+"that's all. But if you want you can try to customise the event as you want. "
+"Now all the short code are on place and it's only up to you to add event or "
+"custom comment. Enjoy"
+msgstr ""
+"<h2>… E’ tutto?</h2> Si… se non vuoi eseguire cose particolari o scherzi da "
+"geek, questo è tutto. Ma se vuoi puoi provare ad eseguire delle "
+"personalizzazioni, guardare come inserire un bottone, aggiungere uno stile "
+"diverso ecc ecc"
+
+#: admin/views/html-settings-page.inc.php:84
+msgid "Example"
+msgstr "Esempio"
+
+#: admin/views/html-settings-page.inc.php:87
+msgid ""
+" What is probably present in your editor looks like this piece of code, here "
+"one time line with with 2 events:\n"
+"<pre class=\"codestyle\">[svtimeline]\n"
+"  [svt-event title=\"Decision time...\" date=\"28/05/2016\"]\n"
+"   Lore ipsum...\n"
+"  [/svt-event]\n"
+"  [svt-event title=\"Decision time...\" date=\"28/05/2016\" class=\"svt-cd-"
+"yellow\" button_link=\"https://.../\" button_label=\" more...\" ]\n"
+"   Lore ipsum...\n"
+"  [/svt-event]\n"
+"[/svtimeline]</pre>\n"
+"Check the following sections to discover all the feature that you can use.\n"
+"\t\t"
+msgstr ""
+"Ciò che probabilmente è presente nel vostro editor è qualcosa di simile a "
+"questo pezzo di codice… una timeline con 2 eventi: \n"
+"<pre class=\"codestyle\">[svtimeline]\n"
+"  [svt-event title=\"Decision time...\" date=\"28/05/2016\"]\n"
+"   Lore ipsum...\n"
+"  [/svt-event]\n"
+"  [svt-event title=\"Decision time...\" date=\"28/05/2016\" class=\"svt-cd-"
+"yellow\" button_link=\"https://.../\" button_label=\" more...\" ]\n"
+"   Lore ipsum...\n"
+"  [/svt-event]\n"
+"[/svtimeline]</pre>\n"
+"Controllare le seguenti sezioni per scoprire tutte le funzionalità che è "
+"possibile utilizzare."
+
+#: admin/views/html-settings-page.inc.php:99
+msgid " Short code [svtimeline]"
+msgstr " Shortcode [svtimeline]"
+
+#: admin/views/html-settings-page.inc.php:100
+msgid ""
+" The <code>[svtimeline] ... [/svtimeline]</code> is the container of timeline"
+msgstr ""
+"Il <code>[svtimeline] ... [/svtimeline]</code> è il contenitore della "
+"timeline"
+
+#: admin/views/html-settings-page.inc.php:101
+msgid "Short code [svt-event] "
+msgstr "Shortcode [svt-event] "
+
+#: admin/views/html-settings-page.inc.php:102
+msgid ""
+"The <code>[svt-event ...] ... [/svt-event]</code>  is used for the "
+"definition of one event and that need to be insert only within the "
+"<em>svtimeline</em> section."
+msgstr ""
+"Il <code>[svt-event ...] ... [/svt-event]</code> è usato per la definizione "
+"di un evento e deve essere inserito all’interno dello shortcode "
+"<em>svtimeline</em>."
+
+#: admin/views/html-settings-page.inc.php:105
+msgid "Options"
+msgstr "Opzioni"
+
+#: admin/views/html-settings-page.inc.php:106
+msgid "Description"
+msgstr "Descrizione"
+
+#: admin/views/html-settings-page.inc.php:110
+msgid "The title of events"
+msgstr "Il titolo degli eventi"
+
+#: admin/views/html-settings-page.inc.php:114
+msgid "The date of event"
+msgstr "La data dell’evento"
+
+#: admin/views/html-settings-page.inc.php:118
+msgid "With this tag you can specify class for the icons or color of button"
+msgstr ""
+"Con questo tag puoi specificare il css “class” per le icone, colori dei "
+"bottoni."
+
+#: admin/views/html-settings-page.inc.php:122
+msgid "if specified with one href link then one button appears with this link."
+msgstr "Se specificato un “URI” verrà mostrato un pulsante con questo link."
+
+#: admin/views/html-settings-page.inc.php:126
+msgid ""
+"if specified with one label then the label will be appear on the button."
+msgstr ""
+"Se specificata una etichetta verrà inserito un bottone con tale etichetta"
+
+#: admin/views/html-settings-page.inc.php:137
+msgid "Save options"
+msgstr "Save options"
+
+#: admin/views/html-settings-page.inc.php:181
+msgid "Plugin Homepage"
+msgstr "Plugin Homepage"
+
+#: admin/views/html-settings-page.inc.php:184
+msgid "Suggest a Feature"
+msgstr "Suggerimenti"
+
+#: admin/views/html-settings-page.inc.php:187
+msgid "Report a Bug"
+msgstr "Segnala un Bug"
+
+#: admin/views/html-settings-page.inc.php:190
+msgid "Rate the plugin on WordPress.org"
+msgstr "Valuta il plugin su WordPress.org"
+
+#: admin/views/html-settings-page.inc.php:202
+msgid "Translator"
+msgstr "Traduttori"
+
+#: node_modules/grunt-pot/test/fixtures/some-file.php:3
+msgid "I'm a translatable string."
+msgstr "I'm a translatable string."
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:4
+msgid "Me too"
+msgstr "Me too"
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:7
+#, php-format
+msgid "I have %d apple"
+msgid_plural "I have %d apples"
+msgstr[0] "Ho %d  mela"
+msgstr[1] "Ho %d mele"
+
+#. / TRANSLATORS: This should be translated as a shorthand for YEAR-MONTH-DAY using 4, 2 and 2 digits.
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:16
+msgid "yyyy-mm-dd"
+msgstr "yyyy-mm-dd"
