@@ -127,7 +127,10 @@ module.exports = function(grunt) {
     },
     watch: {
       sass:{
-        files: ['admin/css/**/*.scss', '/css/**/*.scss', '/css/partials/_*.scss'],
+        files: [
+          'admin/css/admin-style.scss',
+          'css/simple-vertical-timeline.scss'
+        ],
         tasks: ['sass']
       },
       coffee:{
@@ -166,6 +169,27 @@ module.exports = function(grunt) {
         pretend: false,
         updateAndDelete: true
       }
+    },
+    browserSync: {
+      dev: {
+        bsFiles: {
+          src: [
+            '<%= pkg.sandbox.dir %>/**/*'
+          ]
+        },
+        options: {
+          watchTask: true,
+          debugInfo: true,
+          logConnections: true,
+          notify: true,
+          proxy: "localhost",
+          ghostMode: {
+            scroll: true,
+            links: true,
+            forms: true
+          }
+        }
+      }
     }
   });
 
@@ -178,12 +202,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-pot');
   grunt.loadNpmTasks('grunt-sync');
+  grunt.loadNpmTasks('grunt-browser-sync');
+
 
 
   // Default task.
   grunt.registerTask('default', ['build']);
   grunt.registerTask('finalize', ['replace', 'build']);
-  grunt.registerTask('dev', ['build', 'sync', 'watch']);
+  grunt.registerTask('dev', ['build', 'sync', 'browserSync', 'watch']);
   grunt.registerTask('build', ['sass', 'coffee', 'concat', 'uglify', 'replace']);
 
 };
