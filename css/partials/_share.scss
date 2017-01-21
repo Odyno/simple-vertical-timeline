@@ -1,3 +1,46 @@
+@mixin background($imgpath,$width:20px,$height:20px) {
+  background: {
+    image: url($imgpath);
+  }
+  display: block;
+  width: $width;
+  height: $height;
+  margin: 2px;
+}
+
+.svt-icon-twitter {
+  @include background('../img/share/twitter.svg');
+}
+
+.svt-icon-external-link {
+  @include background('../img/share/external-link.svg');
+}
+
+.svt-icon-facebook {
+  @include background('../img/share/facebook.svg');
+}
+
+.svt-icon-googleplus {
+  @include background('../img/share/googleplus.svg');
+}
+
+.svt-icon-linkedin {
+  @include background('../img/share/linkedin.svg');
+}
+
+.svt-icon-pinterest {
+  @include background('../img/share/pinterest.svg');
+}
+
+.svt-icon-whatsapp {
+  @include background('../img/share/whatsapp.svg');
+}
+
+
+
+
+
+
 .svt-share {
 
   position: relative;
@@ -11,7 +54,6 @@
     border-right: 1px dotted black;
 
     visibility: hidden;
-    width: 120px;
     background-color: #fff;
     color: #fff;
     text-align: center;
@@ -21,7 +63,7 @@
     position: absolute;
     z-index: 1;
 
-    width: 30px;
+    width: 35px;
     bottom: 100%;
     left: 50%;
     margin-left: -15px;
@@ -57,7 +99,6 @@
 
     }
   }
-
 
 
 }

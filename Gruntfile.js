@@ -30,11 +30,11 @@ module.exports = function(grunt) {
           '_nx:1,2,4c',
           '_n_noop:1,2',
           '_nx_noop:1,2,3c'
-        ],
+        ]
       },
       files:{
         src:  [ '**/*.php' ], //Parse all php files
-        expand: true,
+        expand: true
       }
     },
     sass: {                              // Task
@@ -127,12 +127,44 @@ module.exports = function(grunt) {
     },
     watch: {
       sass:{
-        files: ['admin/css/**/*.scss','/css/**/*.scss'],
+        files: ['admin/css/**/*.scss', '/css/**/*.scss', '/css/partials/_*.scss'],
         tasks: ['sass']
       },
       coffee:{
         files: ['js/**/*.coffee'],
         tasks: ['coffee','uglify']
+      },
+      sync: {
+        files: [
+          '**',
+          '!node_modules/**/*',
+          '!.sass-cache',
+          '!.git*',
+          '!**/*.scss',
+          '!.idea'
+        ],
+        tasks: 'sync'
+      }
+    },
+    sync: {
+      hotdeploy: {
+        files: [
+          {
+            cwd: '.',
+            src: [
+              '**',
+              '!node_modules/**/*',
+              '!.sass-cache',
+              '!.git*',
+              '!**/*.scss',
+              '!.idea'
+            ],
+            dest: '<%= pkg.sandbox.dir %>'
+          }
+        ],
+        verbose: true,
+        pretend: false,
+        updateAndDelete: true
       }
     }
   });
@@ -145,12 +177,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-pot');
-
-
-
+  grunt.loadNpmTasks('grunt-sync');
 
 
   // Default task.
-  grunt.registerTask('default', ['sass', 'coffee' , 'concat', 'uglify', 'replace']);
+  grunt.registerTask('default', ['build']);
+  grunt.registerTask('finalize', ['replace', 'build']);
+  grunt.registerTask('dev', ['build', 'sync', 'watch']);
+  grunt.registerTask('build', ['sass', 'coffee', 'concat', 'uglify', 'replace']);
 
 };

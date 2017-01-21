@@ -1,3 +1,59 @@
+.svt-icon-twitter {
+  background-image: url("../img/share/twitter.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+}
+
+.svt-icon-external-link {
+  background-image: url("../img/share/external-link.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+}
+
+.svt-icon-facebook {
+  background-image: url("../img/share/facebook.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+}
+
+.svt-icon-googleplus {
+  background-image: url("../img/share/googleplus.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+}
+
+.svt-icon-linkedin {
+  background-image: url("../img/share/linkedin.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+}
+
+.svt-icon-pinterest {
+  background-image: url("../img/share/pinterest.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+}
+
+.svt-icon-whatsapp {
+  background-image: url("../img/share/whatsapp.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+}
+
 .svt-share {
   position: relative;
   display: inline-block;
@@ -8,7 +64,6 @@
   border-left: 1px dotted black;
   border-right: 1px dotted black;
   visibility: hidden;
-  width: 120px;
   background-color: #fff;
   color: #fff;
   text-align: center;
@@ -16,7 +71,7 @@
   border-radius: 6px;
   position: absolute;
   z-index: 1;
-  width: 30px;
+  width: 35px;
   bottom: 100%;
   left: 50%;
   margin-left: -15px;

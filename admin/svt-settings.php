@@ -11,7 +11,7 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 
 	class SVT_Settings {
 
-        const OPTION_IS_ENABLED_SOLCIAL_MEDIA="svt_is_enable_social_media";
+		const OPTION_IS_ENABLED_SOLCIAL_MEDIA = "svt_is_enable_social_media";
 		const OPTION_SIGNE = 'svt_signe';
 		const OPTION_ANALITYCS = 'svt_analitycs';
 		const PAGE_SETTING = 'svt_settings';
@@ -21,13 +21,24 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 		/**
 		 * This is our constructor
 		 *
-		 * @return void
 		 */
 		public function __construct() {
-			add_action( 'admin_init', array( $this, 'register_settings_sections' ) );
-			add_action( 'admin_init', array( $this, 'register_settings_style' ) );
-			add_action( 'admin_menu', array( $this, 'add_menu_settings_voice' ) );
-			add_action( 'plugin_action_links', array( $this, 'add_setting_link' ), 2, 2 );
+			add_action( 'admin_init', array(
+				$this,
+				'register_settings_sections'
+			) );
+			add_action( 'admin_init', array(
+				$this,
+				'register_settings_style'
+			) );
+			add_action( 'admin_menu', array(
+				$this,
+				'add_menu_settings_voice'
+			) );
+			add_action( 'plugin_action_links', array(
+				$this,
+				'add_setting_link'
+			), 2, 2 );
 
 		}
 
@@ -43,13 +54,16 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 			);
 
 			//ADD CSS
-			add_action( 'admin_print_styles-' . $hook_suffix, array( $this, 'load_style' ) );
+			add_action( 'admin_print_styles-' . $hook_suffix, array(
+				$this,
+				'load_style'
+			) );
 		}
 
 		public function register_settings_style() {
-          $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.css' : '.min.css';
+			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.css' : '.min.css';
 
-          wp_register_style( 'svt-admin-style', plugins_url( "/admin/css/admin-style".$suffix, __SVT_FILE__ ) );
+			wp_register_style( 'svt-admin-style', plugins_url( "/admin/css/admin-style" . $suffix, __SVT_FILE__ ) );
 		}
 
 
@@ -58,7 +72,7 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 		}
 
 		public function add_setting_link( $actions, $file ) {
-			if ( false !== strpos( $file, 'simple-vertical-timeline' ) ) {
+			if ( FALSE !== strpos( $file, 'simple-vertical-timeline' ) ) {
 				$actions['settings'] = '<a href="options-general.php?page=' . SVT_Settings::PAGE_ID . '">' . __( 'Settings', 'svt' ) . '</a>';
 			}
 
@@ -74,27 +88,27 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 
 		//NOT USED
 		public function add_section_socialmedia() {
-          add_settings_section(
-            SVT_Settings::PAGE_SETTING . "_SocialMedia", //String for use in the 'id' attribute of tags.
-            __( ' ', 'svt' ),                //Title of the section
-            function ($args){
-              _e( ' ', 'svt');
-            },  //Function that fills the section with the desired content. The function should echo its output.
-            SVT_Settings::PAGE_ID            //The type of settings page on which to show the section
-          );
+			add_settings_section(
+				SVT_Settings::PAGE_SETTING . "_SocialMedia", //String for use in the 'id' attribute of tags.
+				__( ' ', 'svt' ),                //Title of the section
+				function () {
+					_e( ' ', 'svt' );
+				},  //Function that fills the section with the desired content. The function should echo its output.
+				SVT_Settings::PAGE_ID            //The type of settings page on which to show the section
+			);
 
 
-          add_settings_field(
-            SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA,                        //String for use in the 'id' attribute of tags.
-            __( 'Show extra social media sharing icons', 'svt' ),           // Title of the field.
-            function ($args){
-              echo ' <input name="'.SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA.'" value="1" type="checkbox" class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA ), false ) . ' />';
-            }, //Function that fills the field with the desired inputs as part of the larger form. Name and id of the input should match the $id given to this function. The function should echo its output.
-            SVT_Settings::PAGE_ID,          //The type of settings page on which to show the field
-            SVT_Settings::PAGE_SETTING . "_SocialMedia"                  //The section of the settings page in which to show the box (default or a section you added with add_settings_section, look at the page in the source to see what the existing ones are.
-          );
+			add_settings_field(
+				SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA,                        //String for use in the 'id' attribute of tags.
+				__( 'Show extra social media sharing icons', 'svt' ),           // Title of the field.
+				function () {
+					echo ' <input name="' . SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA . '" value="1" type="checkbox" class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA ), FALSE ) . ' />';
+				}, //Function that fills the field with the desired inputs as part of the larger form. Name and id of the input should match the $id given to this function. The function should echo its output.
+				SVT_Settings::PAGE_ID,          //The type of settings page on which to show the field
+				SVT_Settings::PAGE_SETTING . "_SocialMedia"                  //The section of the settings page in which to show the box (default or a section you added with add_settings_section, look at the page in the source to see what the existing ones are.
+			);
 
-          register_setting( SVT_Settings::PAGE_SETTING, SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA );
+			register_setting( SVT_Settings::PAGE_SETTING, SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA );
 
 		}
 
@@ -148,11 +162,11 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 		 * The function should echo its output.
 		 */
 		function get_HTML_field_Signe() {
-			echo ' <input name="' . SVT_Settings::OPTION_SIGNE . '" type="checkbox" value="1"  class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_SIGNE ), false ) . ' />';
+			echo ' <input name="' . SVT_Settings::OPTION_SIGNE . '" type="checkbox" value="1"  class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_SIGNE ), FALSE ) . ' />';
 		}
 
 		function get_HTML_field_Analitycs() {
-			echo ' <input name="' . SVT_Settings::OPTION_ANALITYCS . '" type="checkbox" value="1"  class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_ANALITYCS ), false ) . ' />';
+			echo ' <input name="' . SVT_Settings::OPTION_ANALITYCS . '" type="checkbox" value="1"  class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_ANALITYCS ), FALSE ) . ' />';
 		}
 
 		function get_HTML_Setting_Page() {
@@ -167,7 +181,7 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 		static function get_sign() {
 
 			$sign_inline_style = "display: none;";
-			if ( get_option( SVT_Settings::OPTION_SIGNE, true ) ) {
+			if ( get_option( SVT_Settings::OPTION_SIGNE, TRUE ) ) {
 				$sign_inline_style = "color: #000; font-family: arial,sans-serif; text-align: right; font-size: 77%;";
 			}
 
@@ -180,13 +194,14 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 		 */
 		static function get_contrib() {
 			$contribCode = "";
-			if ( get_option( get_option( SVT_Settings::OPTION_ANALITYCS, true ) ) ) {
+			if ( get_option( get_option( SVT_Settings::OPTION_ANALITYCS, TRUE ) ) ) {
 				$contribCode = '
 					<img style="display: none;" 
-						src="http://www.staniscia.net/wp-data/logo.php?t=gif&p=svt" 
+						src="http://www.staniscia.net/wp-data/logo.php?t=gif&p=svt&v=' . SVT_VER . '" 
 						alt="logo" 
 						onerror="this.parentNode.removeChild(this)" />';
-				}
+			}
+
 			return $contribCode;
 		}
 
