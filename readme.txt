@@ -90,6 +90,12 @@ None
 
 == Changelog ==
 
+
+= 0.1.0 =
+* FIX - Not correctly displayed on my site
+* FIX - Parse Error on activation
+
+
 = 0.0.7 =
 * Added Linear Icons for share and future use
 * ITA translation
