@@ -342,7 +342,7 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		 *
 		 * @return string
 		 */
-		function add_shortcode_timeline( $atts, $content = NULL ) {
+		function add_shortcode_timeline( $atts = NULL, $content = NULL ) {
 
 			/*$atts = shortcode_atts(
 				array(
@@ -352,8 +352,10 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 				'svtimeline'
 			);*/
 
-			$out = '<section class="svt-cd-timeline svt-cd-container">' . do_shortcode( $content ) . '</section> <!-- cd-timeline -->';
-			$out .= '<div style=\'' . SVT_Settings::get_sign() . '\'>powered by <a href="http://www.staniscia.net/simple-vertical-timeline/">SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div></div>';
+			$out = "<dev>";
+			$out .= ' <div class="svt-cd-timeline svt-cd-container">' . do_shortcode( $content ) . '</div> <!-- cd-timeline -->';
+			$out .= ' <div style=\'' . SVT_Settings::get_sign() . '\'>powered by <a href="http://www.staniscia.net/simple-vertical-timeline/" target="_blank" >SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div>';
+			$out .= "</dev>";
 
 			return $out;
 		}
