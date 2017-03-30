@@ -358,10 +358,10 @@ HTML;
 				'svtimeline'
 			);*/
 
-			$out = "<dev>";
+			$out = "<div>";
 			$out .= ' <div class="svt-cd-timeline svt-cd-container">' . do_shortcode( $content ) . '</div> <!-- cd-timeline -->';
 			$out .= ' <div style=\'' . SVT_Settings::get_sign() . '\'>powered by <a href="http://www.staniscia.net/simple-vertical-timeline/" target="_blank" >SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div>';
-			$out .= "</dev>";
+			$out .= "</div>";
 
 			return $out;
 		}
