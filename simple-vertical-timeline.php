@@ -228,14 +228,15 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 				'svt-event'
 			);
 
+            $buttons = '';
 			if ( ! empty( $atts['button_link'] ) ) {
 				$buttons = '<a href="' . $atts['button_link'] . '" class="svt-cd-read-more" target="_new">' . $atts['button_label'] . '</a>';
 			} else {
-				$buttons = '';
 			} // none now <a href="#0" class="svt-cd-read-more">pluto</a>';
 
             $title = urlencode( $atts['title'] );
-			$sc_content = do_shortcode( $content );
+			$disp_title = str_replace('::br::', '<br>', $atts['title'] );
+            $sc_content = do_shortcode( $content );
 			$title_classes = trim('svt-cd-timeline-content-title ' . $atts['title_class']);
 			return <<<HTML
 
@@ -245,7 +246,7 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
     <img src="{$atts['icon']}" alt="Picture">
   </div> <!-- svt-cd-timeline-img -->
   <div class="svt-cd-timeline-content">
-    <h2 class="{$title_classes}">{$atts['title']} {$this->add_share_code( $atts, $content )}</h2>
+    <h2 class="{$title_classes}">{$disp_title} {$this->add_share_code( $atts, $content )}</h2>
     <p class="svt-cd-timeline-content-body">{$sc_content}</p>
     <p class="svt-cd-timeline-content-btm-more"> {$buttons}</p>
     <span class="svt-cd-date">{$atts['date']}</span>
