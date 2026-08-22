@@ -3,13 +3,100 @@ on:
   push:
     tags:
       - "*"
+  pull_request:
+    branches: [master, main]
 
 permissions:
   contents: write
+  security-events: write
+  actions: read
 
 jobs:
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: ctype, curl, dom, fileinfo, filter, gd, hash, iconv, intl, json, mbstring, openssl, pcre, pdo, pdo_sqlite, phar, posix, simplexml, soap, sockets, sodium, sqlite3, tokenizer, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+
+      - name: Install WordPress Coding Standards
+        run: |
+          composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs dealerdirect/phpcodesniffer-composer-installer
+          phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
+          phpcs --config-set default_standard WordPress-Core
+          phpcs -i
+
+      - name: PHP Lint
+        run: find . -name "*.php" -not -path "./vendor/*" -not -path "./node_modules/*" -exec php -l {} \;
+
+      - name: WordPress Coding Standards Check
+        run: |
+          phpcs --standard=WordPress-Core --extensions=php --ignore=*/vendor/*,*/node_modules/*,*/.git/* .
+        continue-on-error: true
+
+      - name: WordPress Security Checks
+        run: |
+          echo "=== Checking for common WordPress security issues ==="
+          
+          # Check for direct file access without ABSPATH check
+          echo "--- Direct file access check ---"
+          grep -r "^\s*<?php" --include="*.php" . | grep -v "ABSPATH" | grep -v "index.php" | head -20 || echo "OK"
+          
+          # Check for unescaped output
+          echo "--- Unescaped output check ---"
+          grep -rn "echo\s*\$" --include="*.php" . | grep -v "esc_" | grep -v "wp_kses" | head -20 || echo "OK"
+          
+          # Check for unsanitized input
+          echo "--- Unsanitized input check ---"
+          grep -rn '\$_GET\|\$_POST\|\$_REQUEST\|\$_COOKIE' --include="*.php" . | grep -v "sanitize_\|esc_\|absint\|intval\|floatval" | head -20 || echo "OK"
+          
+          # Check for eval() usage
+          echo "--- eval() check ---"
+          grep -rn "eval\s*(" --include="*.php" . | head -10 || echo "OK"
+          
+          # Check for base64_decode usage
+          echo "--- base64_decode check ---"
+          grep -rn "base64_decode" --include="*.php" . | head -10 || echo "OK"
+          
+          # Check for create_function usage
+          echo "--- create_function check ---"
+          grep -rn "create_function" --include="*.php" . | head -10 || echo "OK"
+          
+          # Check for file operations without validation
+          echo "--- File operation check ---"
+          grep -rn "file_put_contents\|file_get_contents\|fopen\|fwrite" --include="*.php" . | grep -v "wp_upload_dir\|plugin_dir_path\|WP_CONTENT_DIR" | head -20 || echo "OK"
+          
+          echo "=== Security checks completed ==="
+
+      - name: WordPress Plugin Check
+        run: |
+          curl -O https://raw.githubusercontent.com/WordPress/plugin-check-action/main/plugin-check.sh || echo "Plugin check script not available, skipping"
+          if [ -f plugin-check.sh ]; then
+            chmod +x plugin-check.sh
+            ./plugin-check.sh || true
+          fi
+        continue-on-error: true
+
+      - name: Upload security report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-report
+          path: |
+            security-report.txt
+          retention-days: 30
+
   deploy:
     name: Deploy to WordPress.org
+    needs: security-scan
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
