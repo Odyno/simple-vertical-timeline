@@ -1,0 +1,22 @@
+# WordPress.org assets (banners, icons, screenshots)
+/.wordpress-org
+
+# GitHub specific
+/.github
+
+# Build artifacts
+/node_modules
+/dist
+/build
+
+# Config files
+/.gitattributes
+/.gitignore
+/.distignore
+/package.json
+/package-lock.json
+/Gruntfile.js
+/deploy.sh
+
+# Docs
+/README.md
