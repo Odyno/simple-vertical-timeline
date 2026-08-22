@@ -2,9 +2,10 @@
 Contributors: Odyno
 Tags: responsive timeline, Responsive Timeline WordPress,Timeline for WordPress, Timeline, vertical, timeline, animated, css3, animations, evan, herman, evan herman, easy, time, line, font awesome, font, awesome, announcements, notifications, simple, events, calendar, scroll, triggered, scrolling, animated, fade, in, fade in, timeline, timelines, timelineJS, journalism tool
 Donate link: http://www.staniscia.net/donate
-Requires at least: 3.4.2
-Tested up to: 4.7
-Stable tag: 0.1
+Requires at least: 5.0
+Tested up to: 6.7
+Requires PHP: 7.4
+Stable tag: 0.1.1
 Text Domain: svt
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -90,6 +91,16 @@ None
 
 == Changelog ==
 
+= 0.1.1 =
+* SECURITY FIX: XSS via shortcode attributes (title, button_link, icon)
+* SECURITY FIX: XSS in share button URLs
+* Fix: esc_url() validation for button links
+* Fix: deprecated target="_new" replaced with target="_blank" + rel="noopener noreferrer"
+* Fix: Author URI typo (ttp://)
+* Fix: wp_get_attachment_url() instead of guid for thumbnails
+* Update: WordPress 6.7 compatibility
+* Update: PHP 7.4 minimum requirement
+* Add: GitHub Action for automated WordPress.org deployment
 
 = 0.1.0 =
 * FIX - Not correctly displayed on my site

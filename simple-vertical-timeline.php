@@ -3,11 +3,14 @@
 Plugin Name: Simple Vertical Timeline
 Plugin URI: http://www.staniscia.net/simple-vertical-timeline/
 Description: Allow to create a VERY Simple Vertical Timeline on the current blog.
-Version: 0.1
+Version: 0.1.1
 Author: Alessandro Staniscia
-Author URI: ttp://www.staniscia.net
+Author URI: http://www.staniscia.net
 License: GPL2
 Text Domain: svt
+Requires at least: 5.0
+Tested up to: 6.7
+Requires PHP: 7.4
 
 
 Simple Vertical Timeline is distributed in the hope that it will be useful,
@@ -21,10 +24,8 @@ along with Simple Vertical Timeline. If not, see https://www.gnu.org/licenses/ol
 */
 
 
-if ( ! defined( 'SVT_VER' ) ) /**
- *
- */ {
-	define( 'SVT_VER', '0.1' );
+if ( ! defined( 'SVT_VER' ) ) {
+	define( 'SVT_VER', '0.1.1' );
 }
 
 
@@ -228,24 +229,29 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 			);
 
 			if ( ! empty( $atts['button_link'] ) ) {
-				$buttons = '<a href="' . $atts['button_link'] . '" class="svt-cd-read-more" target="_new">' . $atts['button_label'] . '</a>';
+				$safe_link = esc_url( $atts['button_link'] );
+				if ( ! empty( $safe_link ) ) {
+					$buttons = '<a href="' . $safe_link . '" class="svt-cd-read-more" target="_blank" rel="noopener noreferrer">' . esc_html( $atts['button_label'] ) . '</a>';
+				} else {
+					$buttons = '';
+				}
 			} else {
 				$buttons = '';
-			} // none now <a href="#0" class="svt-cd-read-more">pluto</a>';
+			}
 
-			return ' 
-<div class="svt-cd-timeline-block">
-  <a class="svt-cd-timeline-anchor" name="' . urlencode( $atts['title'] ) . '"></a>
-  <div class="svt-cd-timeline-img ' . $atts['class'] . '">
-    <img src="' . $atts['icon'] . '" alt="Picture">
-  </div> <!-- svt-cd-timeline-img -->
-  <div class="svt-cd-timeline-content">
-    <h2 class="svt-cd-timeline-content-title">' . $atts['title'] . ' ' . $this->add_share_code( $atts, $content ) . '</h2>
-    <p class="svt-cd-timeline-content-body">' . do_shortcode( $content ) . '</p>
-    <p class="svt-cd-timeline-content-btm-more"> ' . $buttons . '</p>
-    <span class="svt-cd-date">' . $atts['date'] . '</span>
-  </div> <!-- svt-cd-timeline-content -->
-</div> <!-- svt-cd-timeline-block -->';
+			return '
+			<div class="svt-cd-timeline-block">
+			<a class="svt-cd-timeline-anchor" name="' . esc_attr( sanitize_title( $atts['title'] ) ) . '"></a>
+			<div class="svt-cd-timeline-img ' . esc_attr( $atts['class'] ) . '">
+			<img src="' . esc_url( $atts['icon'] ) . '" alt="' . esc_attr__( 'Picture', 'svt' ) . '">
+			</div> <!-- svt-cd-timeline-img -->
+			<div class="svt-cd-timeline-content">
+			<h2 class="svt-cd-timeline-content-title">' . esc_html( $atts['title'] ) . ' ' . $this->add_share_code( $atts, $content ) . '</h2>
+			<p class="svt-cd-timeline-content-body">' . do_shortcode( $content ) . '</p>
+			<p class="svt-cd-timeline-content-btm-more"> ' . $buttons . '</p>
+			<span class="svt-cd-date">' . esc_html( $atts['date'] ) . '</span>
+			</div> <!-- svt-cd-timeline-content -->
+			</div> <!-- svt-cd-timeline-block -->';
 		}
 
 		/**
@@ -267,28 +273,26 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 
 			$image_evento = $this->recupera_immagine( $content );
 			if ( empty( $image_evento ) ) {
-				$thumbnail_object = get_post( get_post_thumbnail_id( get_the_ID() ) );
-				$image_articolo   = $thumbnail_object->guid;
+				$thumbnail_id  = get_post_thumbnail_id( get_the_ID() );
+				$image_articolo = $thumbnail_id ? wp_get_attachment_url( $thumbnail_id ) : '';
 
 				if ( ! empty( $image_articolo ) ) {
-					$crunchifyThumbnail = $image_articolo;
+					$crunchifyThumbnail = esc_url( $image_articolo );
 				}
 
 			} else {
-				$crunchifyThumbnail = $image_evento;
+				$crunchifyThumbnail = esc_url( $image_evento );
 			}
 
 			// Get current page URL
-			$planUrl      = wp_get_shortlink() . '#' . urlencode( $atts['title'] );
-			$crunchifyURL = urlencode( $planUrl );
+			$planUrl = wp_get_shortlink() . '#' . esc_attr( sanitize_title( $atts['title'] ) );
 
 			// Get current page title
-			$crunchifyTitle = substr( urlencode( strip_tags( $content ) ), 0, 135 - strlen( $crunchifyURL ) );
+			$crunchifyTitle = substr( urlencode( strip_tags( $content ) ), 0, 135 - strlen( urlencode( $planUrl ) ) );
 
 			if ( empty( $crunchifyTitle ) ) {
 				$crunchifyTitle = urlencode( get_the_title() );
 			}
-
 
 			// Add sharing button at the end of page/page content
 			$content = '<span class="svt-share">';
@@ -296,25 +300,23 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 			$content .= ' <span class="svt-sharebox">';
 			if ( get_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA ) == "1" ) {
 
-
 				// Construct sharing URL without using any script
-				$twitterURL   = 'https://twitter.com/intent/tweet?text=' . $crunchifyTitle . '&amp;url=' . $crunchifyURL;
-				$facebookURL  = 'https://www.facebook.com/sharer/sharer.php?u=' . $crunchifyURL;
-				$googleURL    = 'https://plus.google.com/share?url=' . $crunchifyURL;
-				$whatsappURL  = 'whatsapp://send?text=' . $crunchifyTitle . ' ' . $crunchifyURL;
-				$linkedInURL  = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $crunchifyURL . '&amp;title=' . $crunchifyTitle;
-				$pinterestURL = 'https://pinterest.com/pin/create/button/?url=' . $crunchifyURL . '&amp;media=' . $crunchifyThumbnail . '&amp;description=' . $crunchifyTitle;
+				$twitterURL   = 'https://twitter.com/intent/tweet?text=' . $crunchifyTitle . '&amp;url=' . urlencode( $planUrl );
+				$facebookURL  = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode( $planUrl );
+				$googleURL    = 'https://plus.google.com/share?url=' . urlencode( $planUrl );
+				$whatsappURL  = 'whatsapp://send?text=' . $crunchifyTitle . ' ' . urlencode( $planUrl );
+				$linkedInURL  = 'https://www.linkedin.com/shareArticle?mini=true&url=' . urlencode( $planUrl ) . '&amp;title=' . $crunchifyTitle;
+				$pinterestURL = 'https://pinterest.com/pin/create/button/?url=' . urlencode( $planUrl ) . '&amp;media=' . urlencode( $crunchifyThumbnail ) . '&amp;description=' . $crunchifyTitle;
 
-
-				$content .= '<a href="' . $twitterURL . '" target="_blank"><span class="svt-icon-twitter"></span></a>';
-				$content .= '<a href="' . $facebookURL . '" target="_blank"><span class="svt-icon-facebook"></span></a>';
-				$content .= '<a href="' . $whatsappURL . '" target="_blank"><span class="svt-icon-whatsapp"></span></a>';
-				$content .= '<a href="' . $googleURL . '" target="_blank"><span class="svt-icon-googleplus"></span></a>';
-				$content .= '<a href="' . $linkedInURL . '" target="_blank"><span class="svt-icon-linkedin"></span></a>';
-				$content .= '<a href="' . $pinterestURL . '" target="_blank"><span class="svt-icon-pinterest"></span></a>';
+				$content .= '<a href="' . esc_url( $twitterURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-twitter"></span></a>';
+				$content .= '<a href="' . esc_url( $facebookURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-facebook"></span></a>';
+				$content .= '<a href="' . esc_url( $whatsappURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-whatsapp"></span></a>';
+				$content .= '<a href="' . esc_url( $googleURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-googleplus"></span></a>';
+				$content .= '<a href="' . esc_url( $linkedInURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-linkedin"></span></a>';
+				$content .= '<a href="' . esc_url( $pinterestURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-pinterest"></span></a>';
 			}
 
-			$content .= ' <a href="#" onclick="window.prompt(\'Copy this link:\', \'' . $planUrl . '\')" ><span class="svt-icon-external-link"></span></a>';
+			$content .= ' <a href="#" onclick="window.prompt(\'Copy this link:\', \'' . esc_js( $planUrl ) . '\')" ><span class="svt-icon-external-link"></span></a>';
 			$content .= ' </span>';
 			$content .= '</span>';
 
@@ -354,7 +356,7 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 
 			$out = "<dev>";
 			$out .= ' <div class="svt-cd-timeline svt-cd-container">' . do_shortcode( $content ) . '</div> <!-- cd-timeline -->';
-			$out .= ' <div style=\'' . SVT_Settings::get_sign() . '\'>powered by <a href="http://www.staniscia.net/simple-vertical-timeline/" target="_blank" >SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div>';
+			$out .= ' <div style=\'' . SVT_Settings::get_sign() . '\'>powered by <a href="http://www.staniscia.net/simple-vertical-timeline/" target="_blank" rel="noopener noreferrer">SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div>';
 			$out .= "</dev>";
 
 			return $out;
