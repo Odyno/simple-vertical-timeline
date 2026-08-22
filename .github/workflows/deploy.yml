@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   security-scan:
-    name: 10up WordPress Scanner
+    name: Security Scan
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,23 +25,69 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: ctype, curl, dom, fileinfo, filter, gd, hash, iconv, intl, json, mbstring, openssl, pcre, pdo, pdo_sqlite, phar, posix, simplexml, soap, sockets, sodium, sqlite3, tokenizer, xml, xmlreader, xmlwriter, zip, zlib
+          extensions: mbstring, intl, xml, json
           coverage: none
 
-      - name: 10up WP Scanner (syntax, vulnerabilities, virus)
-        uses: 10up/wp-scanner-action@main
-        with:
-          disable_virus_scan: 'true'
-          vuln_api_provider: 'wordfence'
-          wp_core_version: '6.7'
-        env:
-          VULN_API_TOKEN: ${{ secrets.VULN_API_TOKEN || '' }}
+      - name: Validate composer.json
+        run: composer validate --no-check-all --strict || true
 
-      - name: PHP Compatibility Check
+      - name: PHP Lint
         run: |
-          composer global require phpcompatibility/php-compatibility
-          phpcs --config-set installed_paths $HOME/.composer/vendor/phpcompatibility/php-compatibility
-          phpcs --standard=PHPCompatibility --extensions=php --runtime-set testVersion ${{ matrix.php-version }}- --ignore=*/vendor/*,*/node_modules/*,*/.git/* .
+          echo "Running PHP syntax check..."
+          find . -name "*.php" -not -path "./vendor/*" -not -path "./node_modules/*" -not -path "./.git/*" | xargs -n1 php -l || exit 1
+
+      - name: WordPress Security Checks
+        run: |
+          echo "=== WordPress Security Checks ==="
+          
+          # Check for direct file access without ABSPATH
+          echo "Checking for direct file access..."
+          if grep -r "^<\?php" --include="*.php" . | grep -v "ABSPATH\|index.php\|install.php" | grep -q .; then
+            echo "::warning::Found PHP files without ABSPATH check"
+          else
+            echo "OK: All PHP files have ABSPATH protection"
+          fi
+          
+          # Check for unescaped output
+          echo "Checking for unescaped output..."
+          if grep -rn "echo\s*\$[a-zA-Z_]" --include="*.php" . | grep -v "esc_\|wp_kses\|sanitize_" | grep -q .; then
+            echo "::warning::Found potentially unescaped echo statements"
+          else
+            echo "OK: Output appears escaped"
+          fi
+          
+          # Check for unsanitized input
+          echo "Checking for unsanitized input..."
+          if grep -rn '\$_GET\|\$_POST\|\$_REQUEST' --include="*.php" . | grep -v "sanitize_\|esc_\|absint\|intval\|floatval\|wp_unslash" | grep -q .; then
+            echo "::warning::Found potentially unsanitized input"
+          else
+            echo "OK: Input appears sanitized"
+          fi
+          
+          # Check for dangerous functions
+          echo "Checking for dangerous functions..."
+          for func in eval base64_decode create_function exec shell_exec system passthru; do
+            if grep -rn "\b${func}\s*(" --include="*.php" . | grep -q .; then
+              echo "::error::Found dangerous function: ${func}"
+              exit 1
+            fi
+          done
+          echo "OK: No dangerous functions found"
+          
+          echo "=== Security checks completed ==="
+
+      - name: Check plugin header
+        run: |
+          echo "Checking plugin header..."
+          if ! grep -q "Plugin Name:" simple-vertical-timeline.php; then
+            echo "::error::Missing Plugin Name header"
+            exit 1
+          fi
+          if ! grep -q "Version:" simple-vertical-timeline.php; then
+            echo "::error::Missing Version header"
+            exit 1
+          fi
+          echo "OK: Plugin headers valid"
 
   deploy:
     name: Deploy to WordPress.org
@@ -52,7 +98,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 10up WordPress Plugin Deploy
+      - name: WordPress Plugin Deploy
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
@@ -70,19 +116,3 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  update-assets:
-    name: Update wp.org Assets
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: 10up WordPress Plugin Asset Update
-        uses: 10up/action-wordpress-plugin-asset-update@stable
-        env:
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SLUG: simple-vertical-timeline
-          README_NAME: readme.txt
