@@ -1,15 +1,98 @@
-name: Deploy to WordPress.org and Create Release
+name: Security Scan and Deploy
 on:
   push:
     tags:
       - "*"
+  pull_request:
+    branches: [master, main]
 
 permissions:
   contents: write
+  security-events: write
 
 jobs:
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['7.4', '8.0', '8.2']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl, xml, json
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --no-check-all --strict || true
+
+      - name: PHP Lint
+        run: |
+          echo "Running PHP syntax check..."
+          find . -name "*.php" -not -path "./vendor/*" -not -path "./node_modules/*" -not -path "./.git/*" | xargs -n1 php -l || exit 1
+
+      - name: WordPress Security Checks
+        run: |
+          echo "=== WordPress Security Checks ==="
+          
+          # Check for direct file access without ABSPATH
+          echo "Checking for direct file access..."
+          if grep -r "^<\?php" --include="*.php" . | grep -v "ABSPATH\|index.php\|install.php" | grep -q .; then
+            echo "::warning::Found PHP files without ABSPATH check"
+          else
+            echo "OK: All PHP files have ABSPATH protection"
+          fi
+          
+          # Check for unescaped output
+          echo "Checking for unescaped output..."
+          if grep -rn "echo\s*\$[a-zA-Z_]" --include="*.php" . | grep -v "esc_\|wp_kses\|sanitize_" | grep -q .; then
+            echo "::warning::Found potentially unescaped echo statements"
+          else
+            echo "OK: Output appears escaped"
+          fi
+          
+          # Check for unsanitized input
+          echo "Checking for unsanitized input..."
+          if grep -rn '\$_GET\|\$_POST\|\$_REQUEST' --include="*.php" . | grep -v "sanitize_\|esc_\|absint\|intval\|floatval\|wp_unslash" | grep -q .; then
+            echo "::warning::Found potentially unsanitized input"
+          else
+            echo "OK: Input appears sanitized"
+          fi
+          
+          # Check for dangerous functions
+          echo "Checking for dangerous functions..."
+          for func in eval base64_decode create_function exec shell_exec system passthru; do
+            if grep -rn "\b${func}\s*(" --include="*.php" . | grep -q .; then
+              echo "::error::Found dangerous function: ${func}"
+              exit 1
+            fi
+          done
+          echo "OK: No dangerous functions found"
+          
+          echo "=== Security checks completed ==="
+
+      - name: Check plugin header
+        run: |
+          echo "Checking plugin header..."
+          if ! grep -q "Plugin Name:" simple-vertical-timeline.php; then
+            echo "::error::Missing Plugin Name header"
+            exit 1
+          fi
+          if ! grep -q "Version:" simple-vertical-timeline.php; then
+            echo "::error::Missing Version header"
+            exit 1
+          fi
+          echo "OK: Plugin headers valid"
+
   deploy:
     name: Deploy to WordPress.org
+    needs: security-scan
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
