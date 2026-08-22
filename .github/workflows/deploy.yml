@@ -1,4 +1,4 @@
-name: Deploy to WordPress.org and Create Release
+name: Security Scan and Deploy
 on:
   push:
     tags:
@@ -9,11 +9,10 @@ on:
 permissions:
   contents: write
   security-events: write
-  actions: read
 
 jobs:
   security-scan:
-    name: Security Scan
+    name: 10up WordPress Scanner
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -29,110 +28,20 @@ jobs:
           extensions: ctype, curl, dom, fileinfo, filter, gd, hash, iconv, intl, json, mbstring, openssl, pcre, pdo, pdo_sqlite, phar, posix, simplexml, soap, sockets, sodium, sqlite3, tokenizer, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
 
-      - name: Install WordPress Coding Standards
-        run: |
-          composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs dealerdirect/phpcodesniffer-composer-installer
-          phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
-          phpcs --config-set default_standard WordPress-Core
-          phpcs -i
-
-      - name: PHP Lint
-        run: find . -name "*.php" -not -path "./vendor/*" -not -path "./node_modules/*" -exec php -l {} \;
-
-      - name: WordPress Coding Standards Check
-        run: |
-          phpcs --standard=WordPress-Core --extensions=php --ignore=*/vendor/*,*/node_modules/*,*/.git/* --report=json --report-file=phpcs-report.json . || true
-          phpcs --standard=WordPress-Core --extensions=php --ignore=*/vendor/*,*/node_modules/*,*/.git/* .
-
-      - name: WordPress Security Checks
-        run: |
-          echo "=== Checking for common WordPress security issues ==="
-          
-          # Check for direct file access without ABSPATH check
-          echo "--- Direct file access check ---"
-          grep -r "^\s*<?php" --include="*.php" . | grep -v "ABSPATH" | grep -v "index.php" | head -20 || echo "OK"
-          
-          # Check for unescaped output
-          echo "--- Unescaped output check ---"
-          grep -rn "echo\s*\$" --include="*.php" . | grep -v "esc_" | grep -v "wp_kses" | head -20 || echo "OK"
-          
-          # Check for unsanitized input
-          echo "--- Unsanitized input check ---"
-          grep -rn '\$_GET\|\$_POST\|\$_REQUEST\|\$_COOKIE' --include="*.php" . | grep -v "sanitize_\|esc_\|absint\|intval\|floatval" | head -20 || echo "OK"
-          
-          # Check for eval() usage
-          echo "--- eval() check ---"
-          grep -rn "eval\s*(" --include="*.php" . | head -10 || echo "OK"
-          
-          # Check for base64_decode usage
-          echo "--- base64_decode check ---"
-          grep -rn "base64_decode" --include="*.php" . | head -10 || echo "OK"
-          
-          # Check for create_function usage
-          echo "--- create_function check ---"
-          grep -rn "create_function" --include="*.php" . | head -10 || echo "OK"
-          
-          # Check for file operations without validation
-          echo "--- File operation check ---"
-          grep -rn "file_put_contents\|file_get_contents\|fopen\|fwrite" --include="*.php" . | grep -v "wp_upload_dir\|plugin_dir_path\|WP_CONTENT_DIR" | head -20 || echo "OK"
-          
-          echo "=== Security checks completed ==="
-
-      - name: WordPress Plugin Check
-        run: |
-          curl -O https://raw.githubusercontent.com/WordPress/plugin-check-action/main/plugin-check.sh || echo "Plugin check script not available, skipping"
-          if [ -f plugin-check.sh ]; then
-            chmod +x plugin-check.sh
-            ./plugin-check.sh || true
-          fi
-        continue-on-error: true
-
-      - name: Generate SARIF report
-        if: always()
-        run: |
-          # Convert phpcs JSON to SARIF format for GitHub Security tab
-          cat > sarif-report.json << 'EOF'
-          {
-            "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
-            "version": "2.1.0",
-            "runs": [
-              {
-                "tool": {
-                  "driver": {
-                    "name": "WordPress Security Scan",
-                    "version": "1.0.0",
-                    "informationUri": "https://developer.wordpress.org/plugins/security/"
-                  }
-                },
-                "results": []
-              }
-            ]
-          }
-          EOF
-          
-          # If phpcs report exists, parse and add to SARIF
-          if [ -f phpcs-report.json ]; then
-            echo "Parsing PHPCS report to SARIF..."
-            # Simple conversion - in production use a proper converter
-            echo "PHPCS findings logged"
-          fi
-
-      - name: Upload SARIF to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
+      - name: 10up WP Scanner (syntax, vulnerabilities, virus)
+        uses: 10up/wp-scanner-action@main
         with:
-          sarif_file: sarif-report.json
-          category: wordpress-security
+          disable_virus_scan: 'true'
+          vuln_api_provider: 'wordfence'
+          wp_core_version: '6.7'
+        env:
+          VULN_API_TOKEN: ${{ secrets.VULN_API_TOKEN || '' }}
 
-      - name: Upload security report artifact
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: security-report-php${{ matrix.php-version }}
-          path: |
-            phpcs-report.json
-            sarif-report.json
-          retention-days: 30
+      - name: PHP Compatibility Check
+        run: |
+          composer global require phpcompatibility/php-compatibility
+          phpcs --config-set installed_paths $HOME/.composer/vendor/phpcompatibility/php-compatibility
+          phpcs --standard=PHPCompatibility --extensions=php --runtime-set testVersion ${{ matrix.php-version }}- --ignore=*/vendor/*,*/node_modules/*,*/.git/* .
 
   deploy:
     name: Deploy to WordPress.org
@@ -143,7 +52,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: WordPress Plugin Deploy
+      - name: 10up WordPress Plugin Deploy
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
@@ -161,3 +70,19 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  update-assets:
+    name: Update wp.org Assets
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: 10up WordPress Plugin Asset Update
+        uses: 10up/action-wordpress-plugin-asset-update@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: simple-vertical-timeline
+          README_NAME: readme.txt
