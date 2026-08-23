@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "svt/event",
+  "version": "0.2.0",
+  "title": "Timeline Event",
+  "category": "design",
+  "icon": "marker",
+  "description": "A single event in a Simple Vertical Timeline.",
+  "keywords": [
+    "timeline",
+    "event",
+    "milestone"
+  ],
+  "textdomain": "svt",
+  "parent": [
+    "svt/timeline"
+  ],
+  "supports": {
+    "html": false,
+    "reusable": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "eventDate": {
+      "type": "string",
+      "default": ""
+    },
+    "nodeColor": {
+      "type": "string",
+      "default": "svt-cd-green"
+    },
+    "icon": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLabel": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

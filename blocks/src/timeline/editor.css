@@ -1,0 +1,11 @@
+/* Editor-only styles for the Timeline container block. */
+
+.svt-editor-timeline {
+	border-left: 3px solid #d7e4ed;
+	padding-left: 1rem;
+	margin: 1rem 0;
+}
+
+.svt-editor-timeline .block-list-appender {
+	margin: 0.75rem 0;
+}

@@ -3,7 +3,7 @@
 Plugin Name: Simple Vertical Timeline
 Plugin URI: http://www.staniscia.net/simple-vertical-timeline/
 Description: Allow to create a VERY Simple Vertical Timeline on the current blog.
-Version: 0.1.1
+Version: 0.2.0
 Author: Alessandro Staniscia
 Author URI: http://www.staniscia.net
 License: GPL2
@@ -25,7 +25,7 @@ along with Simple Vertical Timeline. If not, see https://www.gnu.org/licenses/ol
 
 
 if ( ! defined( 'SVT_VER' ) ) {
-	define( 'SVT_VER', '0.1.1' );
+	define( 'SVT_VER', '0.2.0' );
 }
 
 
@@ -65,8 +65,10 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 			$this->loadDependecy();
 
 			//Backend
-			add_action( 'init', array( $this, 'add_tinymce_buttons' ) );
 			add_action( 'plugins_loaded', array( $this, 'textdomain' ) );
+
+			// Blocks (Gutenberg)
+			add_action( 'init', array( $this, 'register_blocks' ) );
 
 			//front_end
 			add_action( 'wp_enqueue_scripts', array(
@@ -89,6 +91,19 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 				'on_deactivation'
 			) );
 
+		}
+
+		/**
+		 * Register Gutenberg blocks.
+		 */
+		public function register_blocks() {
+			$build_dir = plugin_dir_path( __FILE__ ) . 'blocks/build';
+			if ( file_exists( $build_dir . '/timeline/block.json' ) ) {
+				register_block_type( $build_dir . '/timeline' );
+			}
+			if ( file_exists( $build_dir . '/event/block.json' ) ) {
+				register_block_type( $build_dir . '/event' );
+			}
 		}
 
 		function loadDependecy() {
@@ -140,44 +155,6 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 			load_plugin_textdomain( 'svt', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
 
-
-		/**
-		 * Load Tinymce
-		 */
-		function add_tinymce_buttons() {
-			add_filter( "mce_external_plugins", array(
-				$this,
-				"svt_add_buttons"
-			) );
-			add_filter( 'mce_buttons', array( $this, 'svt_register_buttons' ) );
-		}
-
-		/**
-		 * Add custom buttons to Tinymce
-		 *
-		 * @param $plugin_array
-		 *
-		 * @return mixed
-		 */
-		function svt_add_buttons( $plugin_array ) {
-			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.js' : '.min.js';
-
-			$plugin_array['svt'] = plugins_url( 'js/svtplugin/svt-plugin' . $suffix, __FILE__ );
-
-			return $plugin_array;
-		}
-
-		/**
-		 * Add action on custom buttons to Tinymce
-		 *
-		 * @param $buttons
-		 *
-		 * @return mixed
-		 */
-		function svt_register_buttons( $buttons ) {
-			array_push( $buttons, 'svtimeline', "svtevent" ); // dropcap', 'recentposts
-			return $buttons;
-		}
 
 		/**
 		 * add style

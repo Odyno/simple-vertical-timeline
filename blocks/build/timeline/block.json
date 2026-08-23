@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "svt/timeline",
+  "version": "0.2.0",
+  "title": "Simple Vertical Timeline",
+  "category": "design",
+  "icon": "backup",
+  "description": "Create a vertical timeline. Add Event blocks inside it.",
+  "keywords": [
+    "timeline",
+    "vertical",
+    "events",
+    "history"
+  ],
+  "textdomain": "svt",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "allowedBlocks": [
+    "svt/event"
+  ],
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

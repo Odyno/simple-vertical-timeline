@@ -1,24 +1,22 @@
 {
   "name": "simple-vertical-timeline",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Simple Vertical Timeline is a simple plugin that allow you to create a timeline in your Article or Page.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Odyno/simple-vertical-timeline.git"
   },
-  "sandbox": {
-    "dir": "/Users/astaniscia/WorkspacePrivato/Wordpress/wordpress_sandbox/site/wp-content/plugins/simple-vertical-timeline"
-  },
   "scripts": {
-    "prestart": "npm  install",
-    "start": "grunt dev",
-    "finalize": "grunt publish"
+    "build": "wp-scripts build --webpack-src-dir=blocks/src --output-path=blocks/build",
+    "start": "wp-scripts start --webpack-src-dir=blocks/src --output-path=blocks/build",
+    "lint:js": "wp-scripts lint-js blocks/src",
+    "format": "wp-scripts format blocks/src"
   },
   "keywords": [
     "simple",
     "vertical",
-    "time",
-    "line"
+    "timeline",
+    "block"
   ],
   "author": "Odyno (alessandro@staniscia.net)",
   "license": "GPL-2.0",
@@ -26,20 +24,7 @@
     "url": "https://github.com/Odyno/simple-vertical-timeline/issues"
   },
   "homepage": "https://github.com/Odyno/simple-vertical-timeline#readme",
-  "engines": {
-    "node": ">= 0.10.0"
-  },
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-browser-sync": "^2.2.0",
-    "grunt-contrib-coffee": "^1.0.0",
-    "grunt-contrib-concat": "~0.4.0",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "~0.5.0",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-pot": "^0.3.0",
-    "grunt-replace": "^1.0.1",
-    "grunt-sync": "^0.6.2"
+    "@wordpress/scripts": "^27.0.0"
   }
 }
