@@ -1,0 +1,38 @@
+/* Editor-only styles for the Timeline Event block. */
+
+.svt-editor-event {
+	display: flex;
+	gap: 1rem;
+	margin: 1rem 0;
+	padding: 0.75rem;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	background: #fff;
+}
+
+.svt-editor-event .svt-cd-timeline-img {
+	flex: 0 0 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.svt-editor-event .svt-cd-timeline-img.svt-cd-green { background: #75ce66; }
+.svt-editor-event .svt-cd-timeline-img.svt-cd-red { background: #c03b2b; }
+.svt-editor-event .svt-cd-timeline-img.svt-cd-blue { background: #2f87c1; }
+.svt-editor-event .svt-cd-timeline-img.svt-cd-yellow { background: #f0ca45; }
+
+.svt-editor-event-pin {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: #fff;
+}
+
+.svt-editor-event-title {
+	display: block;
+	font-size: 1.05rem;
+	margin-bottom: 0.25rem;
+}

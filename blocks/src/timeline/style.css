@@ -1,0 +1,4 @@
+/* Shared (editor + frontend) styles are inherited from the plugin's
+ * existing css/simple-vertical-timeline.css which is already enqueued
+ * on the frontend. This file intentionally left minimal: block styles
+ * specific to the block are declared in editor.css. */

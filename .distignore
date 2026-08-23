@@ -6,8 +6,7 @@
 
 # Build artifacts
 /node_modules
-/dist
-/build
+/blocks/src
 
 # Config files
 /.gitattributes
