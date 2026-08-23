@@ -29,7 +29,7 @@ const COLOR_OPTIONS = [
 
 registerBlockType( 'svt/event', {
 	edit: ( { attributes, setAttributes } ) => {
-		const { title, eventDate, nodeColor, icon, buttonLabel, buttonLink } =
+		const { title, eventDate, nodeColor, icon, buttonLabel, buttonLink, titleClass } =
 			attributes;
 
 		const blockProps = useBlockProps( {
@@ -84,6 +84,14 @@ registerBlockType( 'svt/event', {
 							value={ buttonLink }
 							onChange={ ( value ) =>
 								setAttributes( { buttonLink: value } )
+							}
+						/>
+						<TextControl
+							label={ __( 'Title CSS class', 'svt' ) }
+							help={ __( 'Additional CSS class(es) for the event title', 'svt' ) }
+							value={ titleClass }
+							onChange={ ( value ) =>
+								setAttributes( { titleClass: value } )
 							}
 						/>
 					</PanelBody>
