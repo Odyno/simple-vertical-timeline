@@ -23,6 +23,7 @@ $svt_class        = isset( $attributes['nodeColor'] ) ? $attributes['nodeColor']
 $svt_icon         = ! empty( $attributes['icon'] ) ? $attributes['icon'] : plugins_url( 'img/cd-icon-location.svg', dirname( __DIR__, 3 ) . '/simple-vertical-timeline.php' );
 $svt_button_label = isset( $attributes['buttonLabel'] ) ? $attributes['buttonLabel'] : '';
 $svt_button_link  = isset( $attributes['buttonLink'] ) ? $attributes['buttonLink'] : '';
+$svt_title_class  = isset( $attributes['titleClass'] ) ? $attributes['titleClass'] : '';
 
 // Build optional "read more" button (same escaping rules as shortcode).
 $svt_buttons = '';
@@ -41,7 +42,7 @@ $svt_out .= '<div class="svt-cd-timeline-img ' . esc_attr( $svt_class ) . '">';
 $svt_out .= '<img src="' . esc_url( $svt_icon ) . '" alt="' . esc_attr__( 'Picture', 'svt' ) . '">';
 $svt_out .= '</div><!-- svt-cd-timeline-img -->';
 $svt_out .= '<div class="svt-cd-timeline-content">';
-$svt_out .= '<h2 class="svt-cd-timeline-content-title">' . esc_html( $svt_title ) . '</h2>';
+$svt_out .= '<h2 class="svt-cd-timeline-content-title ' . esc_attr( trim( $svt_title_class ) ) . '">' . esc_html( $svt_title ) . '</h2>';
 $svt_out .= '<div class="svt-cd-timeline-content-body">' . wp_kses_post( $content ) . '</div>';
 if ( $svt_buttons ) {
 	$svt_out .= '<p class="svt-cd-timeline-content-btm-more">' . $svt_buttons . '</p>';

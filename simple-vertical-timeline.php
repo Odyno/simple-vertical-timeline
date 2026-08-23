@@ -199,7 +199,8 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 					'date'         => date( "Y-m-d H:i" ),
 					'class'        => 'svt-cd-green',
 					'button_label' => 'More',
-					'button_link'  => ''
+					'button_link'  => '',
+					'title_class'  => ''
 				),
 				$atts,
 				'svt-event'
@@ -223,7 +224,7 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 			<img src="' . esc_url( $atts['icon'] ) . '" alt="' . esc_attr__( 'Picture', 'svt' ) . '">
 			</div> <!-- svt-cd-timeline-img -->
 			<div class="svt-cd-timeline-content">
-			<h2 class="svt-cd-timeline-content-title">' . esc_html( $atts['title'] ) . ' ' . $this->add_share_code( $atts, $content ) . '</h2>
+			<h2 class="svt-cd-timeline-content-title ' . esc_attr( trim( $atts['title_class'] ) ) . '">' . esc_html( $atts['title'] ) . ' ' . $this->add_share_code( $atts, $content ) . '</h2>
 			<p class="svt-cd-timeline-content-body">' . do_shortcode( $content ) . '</p>
 			<p class="svt-cd-timeline-content-btm-more"> ' . $buttons . '</p>
 			<span class="svt-cd-date">' . esc_html( $atts['date'] ) . '</span>

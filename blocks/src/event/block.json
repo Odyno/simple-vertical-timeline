@@ -38,6 +38,10 @@
 		"buttonLink": {
 			"type": "string",
 			"default": ""
+		},
+		"titleClass": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"editorScript": "file:./index.js",

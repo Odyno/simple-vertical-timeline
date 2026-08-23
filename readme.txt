@@ -34,7 +34,7 @@ Follow me to discover this new feature for your your wordpress.
 
 If you still use the Classic Editor, the old shortcodes work:
 - `[svtimeline]` ... `[/svtimeline]` — creates the timeline container
-- `[svt-event title="My Event" date="2026-01-01"]` ... `[/svt-event]` — adds an event
+- `[svt-event title="My Event" date="2026-01-01" title_class="my-custom-class"]` ... `[/svt-event]` — adds an event with custom title CSS class
 
 = ... IS IT ALL? =
 Yes and no, if you don't want to customise the timeline, that's all. But if you want you can try to customise the event as you want. Now all the short code are on place and it's only up to you to add event or custom comment.
@@ -96,9 +96,10 @@ None
 = 0.2.0 =
 * NEW: Gutenberg block support — "Simple Vertical Timeline" container + "Timeline Event" child blocks
 * NEW: Dynamic blocks (server-rendered) for consistent output with shortcode
-* NEW: Block sidebar settings for title, date, color, icon, button
+* NEW: Block sidebar settings for title, date, color, icon, button, and custom title CSS class
+* NEW: Shortcode parameter `title_class` for custom CSS classes on event title (from PR #5 idea)
 * REMOVE: TinyMCE legacy buttons (svtimeline, svtevent)
-* REMOVE: js/svtplugin/svt-plugin.js (TinyMCE plugin)
+* REMOVE: js/svtplugin/ directory (TinyMCE plugin)
 * Keep: shortcodes [svtimeline] and [svt-event] for backward compatibility
 * Update: WordPress 6.7 block editor support
 * Update: @wordpress/scripts build system
