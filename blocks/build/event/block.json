@@ -31,27 +31,27 @@
       "type": "string",
       "default": ""
     },
-    "nodeColor": {
-      "type": "string",
-      "default": "svt-cd-green"
-    },
     "icon": {
       "type": "string",
       "default": ""
     },
-    "iconPreset": {
+    "iconMode": {
       "type": "string",
-      "default": ""
+      "default": "library"
     },
-    "buttonLabel": {
+    "iconClass": {
       "type": "string",
-      "default": ""
+      "default": "bi-geo-alt-fill"
     },
-    "buttonLink": {
+    "iconColor": {
       "type": "string",
       "default": ""
     },
     "titleClass": {
+      "type": "string",
+      "default": ""
+    },
+    "dateClass": {
       "type": "string",
       "default": ""
     }

@@ -76,6 +76,7 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 				'add_stylesheet'
 			) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_js' ) );
+			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
 			add_shortcode( 'svt-event', array( $this, 'add_shortcode_event' ) );
 			add_shortcode( 'svtimeline', array(
 				$this,
@@ -177,10 +178,30 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.css' : '.min.css';
 			wp_register_style( 'svt-style', plugins_url( 'css/simple-vertical-timeline' . $suffix, __FILE__ ) );
 			wp_enqueue_style( 'svt-style' );
-			wp_enqueue_style( 'dashicons' );
+			$this->enqueue_icon_library_styles();
 
 			wp_register_style( 'svt-linearicons', plugins_url( 'img/linearicons/style.css', __FILE__ ), array( 'svt-style' ) );
 			wp_enqueue_style( 'svt-linearicons' );
+		}
+
+		/**
+		 * Load icon library styles for both frontend and editor.
+		 */
+		function enqueue_icon_library_styles() {
+			wp_register_style(
+				'svt-bootstrap-icons',
+				plugins_url( 'assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css', __FILE__ ),
+				array(),
+				SVT_VER
+			);
+			wp_enqueue_style( 'svt-bootstrap-icons' );
+		}
+
+		/**
+		 * Editor-side assets.
+		 */
+		function enqueue_editor_assets() {
+			$this->enqueue_icon_library_styles();
 		}
 
 		/**

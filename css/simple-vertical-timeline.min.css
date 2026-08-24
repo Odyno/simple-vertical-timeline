@@ -154,19 +154,20 @@ Accessible responsive timeline layout
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #ffffff;
   box-shadow: 0 0 0 4px #fff, 0 0 0 1px #cbd5e1;
 }
 
 .svt-cd-timeline-img img,
-.svt-cd-timeline-img .dashicons {
+.svt-cd-timeline-img .svt-bi {
   width: 1.35rem;
   height: 1.35rem;
   font-size: 1.35rem;
   line-height: 1.35rem;
-  color: #fff;
+  color: currentColor;
 }
 
-.svt-cd-timeline-img.svt-cd-yellow .dashicons {
+.svt-cd-timeline-img.svt-cd-yellow .svt-bi {
   color: #111827;
 }
 
