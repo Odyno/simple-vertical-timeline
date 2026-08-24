@@ -177,6 +177,7 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.css' : '.min.css';
 			wp_register_style( 'svt-style', plugins_url( 'css/simple-vertical-timeline' . $suffix, __FILE__ ) );
 			wp_enqueue_style( 'svt-style' );
+			wp_enqueue_style( 'dashicons' );
 
 			wp_register_style( 'svt-linearicons', plugins_url( 'img/linearicons/style.css', __FILE__ ), array( 'svt-style' ) );
 			wp_enqueue_style( 'svt-linearicons' );

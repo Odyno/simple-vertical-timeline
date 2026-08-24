@@ -14,13 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Simple wrapper without get_block_wrapper_attributes (which can fail in some contexts)
 $svt_out  = '<div class="svt-cd-timeline svt-cd-container wp-block-svt-timeline">';
 $svt_out .= $content;
 $svt_out .= '</div><!-- svt-cd-timeline -->';
 
 if ( class_exists( 'SVT_Settings' ) ) {
-	$svt_out .= '<div style="' . esc_attr( SVT_Settings::get_sign() ) . '">powered by <a href="http://www.staniscia.net/simple-vertical-timeline/" target="_blank" rel="noopener noreferrer">SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div>';
+	$svt_out .= '<div class="svt-powered-by" style="' . esc_attr( SVT_Settings::get_sign() ) . '">powered by <a href="http://www.staniscia.net/simple-vertical-timeline/" target="_blank" rel="noopener noreferrer">SimpleVerticalTimeline</a>' . SVT_Settings::get_contrib() . '</div>';
 }
 
-return $svt_out;
+echo $svt_out;
