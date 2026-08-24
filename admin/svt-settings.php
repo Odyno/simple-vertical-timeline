@@ -102,7 +102,8 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 				SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA,                        //String for use in the 'id' attribute of tags.
 				__( 'Show extra social media sharing icons', 'svt' ),           // Title of the field.
 				function () {
-					echo ' <input name="' . SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA . '" value="1" type="checkbox" class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA ), FALSE ) . ' />';
+					echo '<input type="hidden" name="' . SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA . '" value="0" />';
+					echo ' <input name="' . SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA . '" value="1" type="checkbox" class="code" ' . checked( '1', (string) get_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA, '1' ), FALSE ) . ' />';
 				}, //Function that fills the field with the desired inputs as part of the larger form. Name and id of the input should match the $id given to this function. The function should echo its output.
 				SVT_Settings::PAGE_ID,          //The type of settings page on which to show the field
 				SVT_Settings::PAGE_SETTING . "_SocialMedia"                  //The section of the settings page in which to show the box (default or a section you added with add_settings_section, look at the page in the source to see what the existing ones are.
@@ -162,11 +163,13 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 		 * The function should echo its output.
 		 */
 		function get_HTML_field_Signe() {
-			echo ' <input name="' . SVT_Settings::OPTION_SIGNE . '" type="checkbox" value="1"  class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_SIGNE ), FALSE ) . ' />';
+			echo '<input type="hidden" name="' . SVT_Settings::OPTION_SIGNE . '" value="0" />';
+			echo ' <input name="' . SVT_Settings::OPTION_SIGNE . '" type="checkbox" value="1"  class="code" ' . checked( '1', (string) get_option( SVT_Settings::OPTION_SIGNE, '1' ), FALSE ) . ' />';
 		}
 
 		function get_HTML_field_Analitycs() {
-			echo ' <input name="' . SVT_Settings::OPTION_ANALITYCS . '" type="checkbox" value="1"  class="code" ' . checked( 1, get_option( SVT_Settings::OPTION_ANALITYCS ), FALSE ) . ' />';
+			echo '<input type="hidden" name="' . SVT_Settings::OPTION_ANALITYCS . '" value="0" />';
+			echo ' <input name="' . SVT_Settings::OPTION_ANALITYCS . '" type="checkbox" value="1"  class="code" ' . checked( '1', (string) get_option( SVT_Settings::OPTION_ANALITYCS, '1' ), FALSE ) . ' />';
 		}
 
 		function get_HTML_Setting_Page() {
@@ -194,7 +197,7 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 		 */
 		static function get_contrib() {
 			$contribCode = "";
-			if ( get_option( get_option( SVT_Settings::OPTION_ANALITYCS, TRUE ) ) ) {
+			if ( '1' === (string) get_option( SVT_Settings::OPTION_ANALITYCS, '1' ) ) {
 				$contribCode = '
 					<img style="display: none;" 
 						src="http://www.staniscia.net/wp-data/logo.php?t=gif&p=svt&v=' . SVT_VER . '" 
