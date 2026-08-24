@@ -14,9 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$svt_wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'svt-cd-timeline svt-cd-container' ) );
-
-$svt_out  = '<div ' . $svt_wrapper_attributes . '>';
+// Simple wrapper without get_block_wrapper_attributes (which can fail in some contexts)
+$svt_out  = '<div class="svt-cd-timeline svt-cd-container wp-block-svt-timeline">';
 $svt_out .= $content;
 $svt_out .= '</div><!-- svt-cd-timeline -->';
 
