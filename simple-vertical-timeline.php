@@ -76,6 +76,7 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 				'add_stylesheet'
 			) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_js' ) );
+			add_action( 'enqueue_block_assets', array( $this, 'enqueue_icon_library_styles' ) );
 			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
 			add_shortcode( 'svt-event', array( $this, 'add_shortcode_event' ) );
 			add_shortcode( 'svtimeline', array(

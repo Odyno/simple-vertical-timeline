@@ -22,30 +22,38 @@ if ( ! function_exists( 'svt_normalize_bootstrap_icon_class' ) ) {
 	 * @return string
 	 */
 	function svt_normalize_bootstrap_icon_class( $value ) {
-		$clean = strtolower( trim( (string) $value ) );
-		$clean = preg_replace( '/\s+/', '', $clean );
-		$clean = preg_replace( '/[^a-z0-9\-]/', '', $clean );
-
-		if ( '' === $clean ) {
+		$raw = strtolower( trim( (string) $value ) );
+		if ( '' === $raw ) {
 			return 'bi-geo-alt-fill';
 		}
 
-		if ( 0 === strpos( $clean, 'bi-' ) ) {
-			return $clean;
+		$tokens = preg_split( '/\s+/', $raw );
+		foreach ( $tokens as $token ) {
+			$token = preg_replace( '/[^a-z0-9\-]/', '', $token );
+			if ( 0 === strpos( $token, 'bi-' ) ) {
+				return $token;
+			}
 		}
 
-		return 'bi-' . $clean;
+		$compact = preg_replace( '/[^a-z0-9\-]/', '', $raw );
+		$compact = preg_replace( '/^bi-?/', '', $compact );
+		if ( '' === $compact ) {
+			return 'bi-geo-alt-fill';
+		}
+
+		return 'bi-' . $compact;
 	}
 }
 
-$svt_title       = isset( $attributes['title'] ) ? $attributes['title'] : '';
-$svt_date_raw    = isset( $attributes['eventDate'] ) ? $attributes['eventDate'] : '';
-$svt_icon_mode   = isset( $attributes['iconMode'] ) ? $attributes['iconMode'] : 'library';
-$svt_icon_url    = ! empty( $attributes['icon'] ) ? $attributes['icon'] : '';
-$svt_icon_class  = isset( $attributes['iconClass'] ) ? $attributes['iconClass'] : '';
-$svt_icon_color  = isset( $attributes['iconColor'] ) ? sanitize_hex_color( $attributes['iconColor'] ) : '';
-$svt_title_class = isset( $attributes['titleClass'] ) ? $attributes['titleClass'] : '';
-$svt_date_class  = isset( $attributes['dateClass'] ) ? $attributes['dateClass'] : '';
+$svt_title        = isset( $attributes['title'] ) ? $attributes['title'] : '';
+$svt_date_raw     = isset( $attributes['eventDate'] ) ? $attributes['eventDate'] : '';
+$svt_icon_mode    = isset( $attributes['iconMode'] ) ? $attributes['iconMode'] : 'library';
+$svt_icon_url     = ! empty( $attributes['icon'] ) ? $attributes['icon'] : '';
+$svt_icon_class   = isset( $attributes['iconClass'] ) ? $attributes['iconClass'] : '';
+$svt_icon_color   = isset( $attributes['iconColor'] ) ? sanitize_hex_color( $attributes['iconColor'] ) : '';
+$svt_marker_bg    = isset( $attributes['markerBgColor'] ) ? sanitize_hex_color( $attributes['markerBgColor'] ) : '';
+$svt_title_class  = isset( $attributes['titleClass'] ) ? $attributes['titleClass'] : '';
+$svt_date_class   = isset( $attributes['dateClass'] ) ? $attributes['dateClass'] : '';
 
 $svt_date = trim( (string) $svt_date_raw );
 if ( preg_match( '/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/', $svt_date, $svt_date_match ) ) {
@@ -57,20 +65,27 @@ if ( preg_match( '/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/', $svt_date, $svt_date_match
 
 $svt_icon_class = svt_normalize_bootstrap_icon_class( $svt_icon_class );
 
-$svt_marker_style_attr = '';
+$svt_marker_styles = array();
 if ( ! empty( $svt_icon_color ) ) {
-	$svt_marker_style_attr = ' style="color:' . esc_attr( $svt_icon_color ) . '"';
+	$svt_marker_styles[] = 'color:' . $svt_icon_color;
+}
+if ( ! empty( $svt_marker_bg ) ) {
+	$svt_marker_styles[] = 'background-color:' . $svt_marker_bg;
+}
+$svt_marker_style_attr = '';
+if ( ! empty( $svt_marker_styles ) ) {
+	$svt_marker_style_attr = ' style="' . esc_attr( implode( ';', $svt_marker_styles ) ) . '"';
 }
 
 $svt_anchor = sanitize_title( $svt_title );
 
 $svt_title_class_safe = implode(
 	' ',
-	array_map( 'sanitize_html_class', preg_split( '/\s+/', trim( (string) $svt_title_class ) ) )
+	array_filter( array_map( 'sanitize_html_class', preg_split( '/\s+/', trim( (string) $svt_title_class ) ) ) )
 );
 $svt_date_class_safe = implode(
 	' ',
-	array_map( 'sanitize_html_class', preg_split( '/\s+/', trim( (string) $svt_date_class ) ) )
+	array_filter( array_map( 'sanitize_html_class', preg_split( '/\s+/', trim( (string) $svt_date_class ) ) ) )
 );
 
 $svt_title_classes = trim( 'svt-cd-timeline-content-title ' . $svt_title_class_safe );
@@ -79,9 +94,7 @@ $svt_date_classes  = trim( 'svt-cd-date svt-cd-date-subtitle ' . $svt_date_class
 $svt_out  = '<div class="svt-cd-timeline-block">';
 $svt_out .= '<a class="svt-cd-timeline-anchor" name="' . esc_attr( $svt_anchor ) . '"></a>';
 $svt_out .= '<div class="svt-cd-timeline-img svt-cd-green" aria-hidden="true"' . $svt_marker_style_attr . '>';
-if ( 'image' === $svt_icon_mode && ! empty( $svt_icon_url ) ) {
-	$svt_out .= '<img src="' . esc_url( $svt_icon_url ) . '" alt="">';
-} elseif ( ! empty( $svt_icon_url ) && filter_var( $svt_icon_url, FILTER_VALIDATE_URL ) ) {
+if ( 'image' === $svt_icon_mode && ! empty( $svt_icon_url ) && filter_var( $svt_icon_url, FILTER_VALIDATE_URL ) ) {
 	$svt_out .= '<img src="' . esc_url( $svt_icon_url ) . '" alt="">';
 } else {
 	$svt_out .= '<i class="svt-bi bi ' . esc_attr( $svt_icon_class ) . '"></i>';

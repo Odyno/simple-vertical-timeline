@@ -5,9 +5,7 @@
   "version": "0.2.0",
   "title": "Timeline Event",
   "category": "design",
-  "icon": {
-    "src": "<svg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path fill='currentColor' d='M12 2 4 8v12h16V8z'/><circle cx='12' cy='12' r='3.2' fill='#fff'/></svg>"
-  },
+  "icon": "marker",
   "description": "A single event in a Simple Vertical Timeline.",
   "keywords": [
     "timeline",
@@ -44,6 +42,10 @@
       "default": "bi-geo-alt-fill"
     },
     "iconColor": {
+      "type": "string",
+      "default": ""
+    },
+    "markerBgColor": {
       "type": "string",
       "default": ""
     },

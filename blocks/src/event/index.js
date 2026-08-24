@@ -9,6 +9,8 @@ import { InnerBlocks, InspectorControls, PanelColorSettings, useBlockProps } fro
 import { PanelBody, SelectControl, TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
+import timeeventIcon from '../icons/timeevent.png';
+
 import './editor.css';
 import './style.css';
 
@@ -34,26 +36,41 @@ const normalizeEventDate = ( rawDate ) => {
 };
 
 const normalizeIconClass = ( value ) => {
-	const clean = String( value || '' )
-		.trim()
-		.toLowerCase()
-		.replace(/\s+/g, '')
-		.replace(/[^a-z0-9\-]/g, '');
-
-	if ( ! clean ) {
+	const raw = String( value || '' ).toLowerCase().trim();
+	if ( ! raw ) {
 		return 'bi-geo-alt-fill';
 	}
 
-	if ( clean.startsWith( 'bi-' ) ) {
-		return clean;
+	const token = raw
+		.split( /\s+/ )
+		.find( ( item ) => /^bi-[a-z0-9-]+$/.test( item ) );
+	if ( token ) {
+		return token;
 	}
 
-	return `bi-${ clean }`;
+	const compact = raw
+		.replace( /[^a-z0-9-]/g, '' )
+		.replace( /^bi-?/, '' );
+
+	if ( ! compact ) {
+		return 'bi-geo-alt-fill';
+	}
+
+	return `bi-${ compact }`;
 };
 
+const iconInputValue = ( iconClass ) => normalizeIconClass( iconClass ).replace( /^bi-/, '' );
+
+const timeeventBlockIcon = (
+	<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+		<image href={ timeeventIcon } xlinkHref={ timeeventIcon } x="0" y="0" width="24" height="24" preserveAspectRatio="xMidYMid meet" />
+	</svg>
+);
+
 registerBlockType( 'svt/event', {
+	icon: timeeventBlockIcon,
 	edit: ( { attributes, setAttributes } ) => {
-		const { title, eventDate, icon, iconMode, iconClass, iconColor, titleClass, dateClass } = attributes;
+		const { title, eventDate, icon, iconMode, iconClass, iconColor, markerBgColor, titleClass, dateClass } = attributes;
 		const displayDate = normalizeEventDate( eventDate );
 		const currentMode = iconMode || 'library';
 		const currentIconClass = normalizeIconClass( iconClass );
@@ -64,6 +81,7 @@ registerBlockType( 'svt/event', {
 
 		const markerStyle = {
 			...( iconColor ? { color: iconColor } : {} ),
+			...( markerBgColor ? { backgroundColor: markerBgColor } : {} ),
 		};
 
 		const titleClasses = `svt-editor-event-title ${ titleClass || '' }`.trim();
@@ -93,8 +111,8 @@ registerBlockType( 'svt/event', {
 						{ currentMode === 'library' ? (
 							<TextControl
 								label={ __( 'Bootstrap icon name', 'svt' ) }
-								help={ __( 'Example: geo-alt-fill, star-fill, alarm, calendar-event.', 'svt' ) }
-								value={ currentIconClass }
+								help={ __( 'Insert only the icon name, without prefix (e.g. geo-alt-fill).', 'svt' ) }
+								value={ iconInputValue( currentIconClass ) }
 								onChange={ ( value ) => setAttributes( { iconClass: normalizeIconClass( value ) } ) }
 							/>
 						) : (
@@ -117,12 +135,17 @@ registerBlockType( 'svt/event', {
 						/>
 					</PanelBody>
 					<PanelColorSettings
-						title={ __( 'Icon color', 'svt' ) }
+						title={ __( 'Icon colors', 'svt' ) }
 						colorSettings={ [
 							{
 								value: iconColor,
 								onChange: ( value ) => setAttributes( { iconColor: value || '' } ),
-								label: __( 'Marker icon color', 'svt' ),
+								label: __( 'Icon color', 'svt' ),
+							},
+							{
+								value: markerBgColor,
+								onChange: ( value ) => setAttributes( { markerBgColor: value || '' } ),
+								label: __( 'Icon circle background', 'svt' ),
 							},
 						] }
 					/>
