@@ -117,8 +117,6 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		 * Installation. Runs on activation.
 		 */
 		public function on_activation() {
-			update_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA, TRUE );
-
 			update_option( SVT_Settings::OPTION_ANALITYCS, TRUE );
 			update_option( SVT_Settings::OPTION_SIGNE, TRUE );
 		}
@@ -127,8 +125,6 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 		 * Deactivation Function
 		 */
 		public function on_deactivation() {
-			delete_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA );
-
 			delete_option( SVT_Settings::OPTION_ANALITYCS );
 			delete_option( SVT_Settings::OPTION_SIGNE );
 		}
@@ -247,93 +243,12 @@ if ( ! class_exists( 'Simple_Vertical_Timeline' ) ) {
 			<img src="' . esc_url( $atts['icon'] ) . '" alt="' . esc_attr__( 'Picture', 'svt' ) . '">
 			</div> <!-- svt-cd-timeline-img -->
 			<div class="svt-cd-timeline-content">
-			<h2 class="svt-cd-timeline-content-title ' . esc_attr( trim( $atts['title_class'] ) ) . '">' . esc_html( $atts['title'] ) . ' ' . $this->add_share_code( $atts, $content ) . '</h2>
+			<h2 class="svt-cd-timeline-content-title ' . esc_attr( trim( $atts['title_class'] ) ) . '">' . esc_html( $atts['title'] ) . '</h2>
 			<p class="svt-cd-timeline-content-body">' . do_shortcode( $content ) . '</p>
 			<p class="svt-cd-timeline-content-btm-more"> ' . $buttons . '</p>
 			<span class="svt-cd-date">' . esc_html( $atts['date'] ) . '</span>
 			</div> <!-- svt-cd-timeline-content -->
 			</div> <!-- svt-cd-timeline-block -->';
-		}
-
-		/**
-		 * Add shortcode on the events
-		 *
-		 * @param $atts
-		 * @param $content
-		 *
-		 * @return string
-		 */
-		function add_share_code( $atts, $content ) {
-			if ( is_null( $content ) ) {
-				$content = "";
-			}
-
-
-			// Get Post Thumbnail for pinterest
-			$crunchifyThumbnail = NULL;
-
-			$image_evento = $this->recupera_immagine( $content );
-			if ( empty( $image_evento ) ) {
-				$thumbnail_id  = get_post_thumbnail_id( get_the_ID() );
-				$image_articolo = $thumbnail_id ? wp_get_attachment_url( $thumbnail_id ) : '';
-
-				if ( ! empty( $image_articolo ) ) {
-					$crunchifyThumbnail = esc_url( $image_articolo );
-				}
-
-			} else {
-				$crunchifyThumbnail = esc_url( $image_evento );
-			}
-
-			// Get current page URL
-			$planUrl = wp_get_shortlink() . '#' . esc_attr( sanitize_title( $atts['title'] ) );
-
-			// Get current page title
-			$crunchifyTitle = substr( urlencode( strip_tags( $content ) ), 0, 135 - strlen( urlencode( $planUrl ) ) );
-
-			if ( empty( $crunchifyTitle ) ) {
-				$crunchifyTitle = urlencode( get_the_title() );
-			}
-
-			// Add sharing button at the end of page/page content
-			$content = '<span class="svt-share">';
-			$content .= ' <span class="lnr lnr-link svt-share-icon"/>';
-			$content .= ' <span class="svt-sharebox">';
-			if ( get_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA ) == "1" ) {
-
-				// Construct sharing URL without using any script
-				$twitterURL   = 'https://twitter.com/intent/tweet?text=' . $crunchifyTitle . '&amp;url=' . urlencode( $planUrl );
-				$facebookURL  = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode( $planUrl );
-				$googleURL    = 'https://plus.google.com/share?url=' . urlencode( $planUrl );
-				$whatsappURL  = 'whatsapp://send?text=' . $crunchifyTitle . ' ' . urlencode( $planUrl );
-				$linkedInURL  = 'https://www.linkedin.com/shareArticle?mini=true&url=' . urlencode( $planUrl ) . '&amp;title=' . $crunchifyTitle;
-				$pinterestURL = 'https://pinterest.com/pin/create/button/?url=' . urlencode( $planUrl ) . '&amp;media=' . urlencode( $crunchifyThumbnail ) . '&amp;description=' . $crunchifyTitle;
-
-				$content .= '<a href="' . esc_url( $twitterURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-twitter"></span></a>';
-				$content .= '<a href="' . esc_url( $facebookURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-facebook"></span></a>';
-				$content .= '<a href="' . esc_url( $whatsappURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-whatsapp"></span></a>';
-				$content .= '<a href="' . esc_url( $googleURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-googleplus"></span></a>';
-				$content .= '<a href="' . esc_url( $linkedInURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-linkedin"></span></a>';
-				$content .= '<a href="' . esc_url( $pinterestURL ) . '" target="_blank" rel="noopener noreferrer"><span class="svt-icon-pinterest"></span></a>';
-			}
-
-			$content .= ' <a href="#" onclick="window.prompt(\'Copy this link:\', \'' . esc_js( $planUrl ) . '\')" ><span class="svt-icon-external-link"></span></a>';
-			$content .= ' </span>';
-			$content .= '</span>';
-
-
-			return $content;
-
-		}
-
-		function recupera_immagine( $content ) {
-			$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches );
-			$out    = NULL;
-			if ( $output != 0 ) {
-				$out = $matches[1][0];
-			}
-
-			return $out;
 		}
 
 

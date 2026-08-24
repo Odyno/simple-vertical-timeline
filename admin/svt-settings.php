@@ -11,7 +11,6 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 
 	class SVT_Settings {
 
-		const OPTION_IS_ENABLED_SOLCIAL_MEDIA = "svt_is_enable_social_media";
 		const OPTION_SIGNE = 'svt_signe';
 		const OPTION_ANALITYCS = 'svt_analitycs';
 		const PAGE_SETTING = 'svt_settings';
@@ -81,35 +80,7 @@ if ( ! class_exists( 'SVT_Settings' ) ) {
 
 
 		public function register_settings_sections() {
-			$this->add_section_socialmedia();
 			$this->add_section_adv();
-
-		}
-
-		//NOT USED
-		public function add_section_socialmedia() {
-			add_settings_section(
-				SVT_Settings::PAGE_SETTING . "_SocialMedia", //String for use in the 'id' attribute of tags.
-				__( ' ', 'svt' ),                //Title of the section
-				function () {
-					_e( ' ', 'svt' );
-				},  //Function that fills the section with the desired content. The function should echo its output.
-				SVT_Settings::PAGE_ID            //The type of settings page on which to show the section
-			);
-
-
-			add_settings_field(
-				SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA,                        //String for use in the 'id' attribute of tags.
-				__( 'Show extra social media sharing icons', 'svt' ),           // Title of the field.
-				function () {
-					echo '<input type="hidden" name="' . SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA . '" value="0" />';
-					echo ' <input name="' . SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA . '" value="1" type="checkbox" class="code" ' . checked( '1', (string) get_option( SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA, '1' ), FALSE ) . ' />';
-				}, //Function that fills the field with the desired inputs as part of the larger form. Name and id of the input should match the $id given to this function. The function should echo its output.
-				SVT_Settings::PAGE_ID,          //The type of settings page on which to show the field
-				SVT_Settings::PAGE_SETTING . "_SocialMedia"                  //The section of the settings page in which to show the box (default or a section you added with add_settings_section, look at the page in the source to see what the existing ones are.
-			);
-
-			register_setting( SVT_Settings::PAGE_SETTING, SVT_Settings::OPTION_IS_ENABLED_SOLCIAL_MEDIA );
 
 		}
 
