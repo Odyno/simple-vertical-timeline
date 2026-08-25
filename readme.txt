@@ -88,7 +88,6 @@ None
 2. Timeline Event block settings
 3. Timeline with events in editor
 4. Timeline responsive view
-5. Share Event
 
 
 == Changelog ==
@@ -98,8 +97,14 @@ None
 * NEW: Dynamic blocks (server-rendered) for consistent output with shortcode
 * NEW: Block sidebar settings for title, date, color, icon, button, and custom title CSS class
 * NEW: Shortcode parameter `title_class` for custom CSS classes on event title (from PR #5 idea)
+* FIX: Admin settings toggles (sign, analytics) not persisting correctly on save
+* FIX: Analytics/contrib option check using a broken nested get_option() call
+* REMOVE: Social media sharing feature entirely (admin toggle, PHP logic, CSS, icons) — was non-functional and unmaintained
 * REMOVE: TinyMCE legacy buttons (svtimeline, svtevent)
 * REMOVE: js/svtplugin/ directory (TinyMCE plugin)
+* REMOVE: legacy build toolchain (Grunt, SCSS/Bourbon, CoffeeScript, deploy.sh)
+* NEW: deterministic CSS minification via npm scripts (clean-css-cli)
+* Update: admin help page aligned with Block Editor workflow
 * Keep: shortcodes [svtimeline] and [svt-event] for backward compatibility
 * Update: WordPress 6.7 block editor support
 * Update: @wordpress/scripts build system
