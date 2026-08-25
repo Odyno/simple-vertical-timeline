@@ -84,7 +84,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 None
 
 == Screenshots ==
-1. Canonical screenshot: responsive frontend timeline view (used across plugin docs/admin).
+1. How to insert SVT in a post/article using Gutenberg blocks (search "Simple Vertical Timeline" in Block Inserter).
+2. How to add an event to the current SVT: "Event settings" fields + free event content area in Gutenberg.
+3. Editor canvas with timeline container and multiple events.
+4. Frontend responsive timeline preview (mobile layout).
+5. Frontend timeline validation capture.
+6. Editor/settings validation capture.
 
 
 == Changelog ==

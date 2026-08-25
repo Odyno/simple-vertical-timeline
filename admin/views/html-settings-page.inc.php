@@ -73,11 +73,19 @@
 								_e( '<h2>DONE</h2>Publish/update the post and the frontend output stays aligned with editor settings.', 'svt' );
 								?></p>
 							<p>
-								<strong><?php _e( 'Canonical preview screenshot', 'svt' ); ?>:</strong>
+								<strong><?php _e( 'Step 1 screenshot: insert SVT block in Gutenberg', 'svt' ); ?>:</strong>
 							</p>
 							<p>
-								<img src="<?php echo esc_url( plugins_url( 'assets/screenshot-4.jpg', __SVT_FILE__ ) ); ?>"
-								     alt="Simple Vertical Timeline responsive preview"
+								<img src="<?php echo esc_url( plugins_url( 'assets/screenshot-1.png', __SVT_FILE__ ) ); ?>"
+								     alt="Search Simple Vertical Timeline in Gutenberg Block Inserter"
+								     style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
+							</p>
+							<p>
+								<strong><?php _e( 'Step 2 screenshot: add Timeline Event and fill Event settings + event content', 'svt' ); ?>:</strong>
+							</p>
+							<p>
+								<img src="<?php echo esc_url( plugins_url( 'assets/screenshot-2.jpg', __SVT_FILE__ ) ); ?>"
+								     alt="Add Timeline Event and configure Event settings fields in Gutenberg"
 								     style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
 							</p>
 						</div>

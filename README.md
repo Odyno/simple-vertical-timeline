@@ -36,15 +36,38 @@ The legacy shortcodes still work for backward compatibility:
 1. Create or edit a Post/Page
 2. Click **+** (Block Inserter)
 3. Search for **"Simple Vertical Timeline"** and insert it
+
+![Step 1 - Search and insert Simple Vertical Timeline block](assets/screenshot-1.png)
+
 4. Click **+** inside the timeline to add your first **Timeline Event**
 5. Fill the event details in the sidebar
 6. Write the event description directly in the block
 
-## Screenshot
+## Screenshots
 
-Canonical screenshot used across docs/admin:
+1. Block inserter search result.
+
+![Simple Vertical Timeline - block inserter](assets/screenshot-1.png)
+
+2. Add an event to the current SVT and configure all "Event settings" fields; event body supports any content.
+
+![Step 2 - Add Timeline Event and configure Event settings](assets/screenshot-2.jpg)
+
+3. Editor timeline with multiple events.
+
+![Simple Vertical Timeline - editor timeline](assets/screenshot-3.jpg)
+
+4. Frontend responsive timeline (mobile).
 
 ![Simple Vertical Timeline - responsive frontend](assets/screenshot-4.jpg)
+
+5. Frontend validation capture.
+
+![Simple Vertical Timeline - frontend validation](assets/screenshot-5.jpg)
+
+6. Editor/settings validation capture.
+
+![Simple Vertical Timeline - editor validation](assets/screenshot-6.png)
 
 ## Installation
 
