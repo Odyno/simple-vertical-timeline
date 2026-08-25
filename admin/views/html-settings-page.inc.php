@@ -76,7 +76,7 @@
 							</ol>
 							<p><strong><?php _e( 'Screenshot #1 — block inserter search', 'svt' ); ?></strong></p>
 							<p>
-								<img src="<?php echo esc_url( plugins_url( 'assets/screenshot-1.png', __SVT_FILE__ ) ); ?>"
+								<img src="<?php echo esc_url( add_query_arg( 'v', (string) ( file_exists( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-1.png' ) ? filemtime( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-1.png' ) : time() ), plugins_url( 'assets/screenshot-1.png', __SVT_FILE__ ) ) ); ?>"
 									 alt="Insert Simple Vertical Timeline from Gutenberg Block Inserter"
 									 style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
 							</p>
@@ -96,7 +96,7 @@
 							</ul>
 							<p><strong><?php _e( 'Screenshot #2 — Event settings and editable event content', 'svt' ); ?></strong></p>
 							<p>
-								<img src="<?php echo esc_url( plugins_url( 'assets/screenshot-2.jpg', __SVT_FILE__ ) ); ?>"
+								<img src="<?php echo esc_url( add_query_arg( 'v', (string) ( file_exists( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-2.jpg' ) ? filemtime( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-2.jpg' ) : time() ), plugins_url( 'assets/screenshot-2.jpg', __SVT_FILE__ ) ) ); ?>"
 									 alt="Timeline Event settings sidebar and editable event content"
 									 style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
 							</p>
@@ -105,7 +105,7 @@
 							<p><?php _e( 'Check event order, titles, dates, markers, and rich content directly in the editor canvas before publishing.', 'svt' ); ?></p>
 							<p><strong><?php _e( 'Screenshot #3 — timeline canvas with multiple events', 'svt' ); ?></strong></p>
 							<p>
-								<img src="<?php echo esc_url( plugins_url( 'assets/screenshot-3.jpg', __SVT_FILE__ ) ); ?>"
+								<img src="<?php echo esc_url( add_query_arg( 'v', (string) ( file_exists( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-3.jpg' ) ? filemtime( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-3.jpg' ) : time() ), plugins_url( 'assets/screenshot-3.jpg', __SVT_FILE__ ) ) ); ?>"
 									 alt="Timeline canvas with multiple events, marker icons, and rich content"
 									 style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
 							</p>
@@ -114,7 +114,7 @@
 							<p><?php _e( 'Publish or update the post, then verify responsive behavior and final rendering on frontend.', 'svt' ); ?></p>
 							<p><strong><?php _e( 'Screenshot #4 — responsive frontend result', 'svt' ); ?></strong></p>
 							<p>
-								<img src="<?php echo esc_url( plugins_url( 'assets/screenshot-4.jpg', __SVT_FILE__ ) ); ?>"
+								<img src="<?php echo esc_url( add_query_arg( 'v', (string) ( file_exists( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-4.jpg' ) ? filemtime( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-4.jpg' ) : time() ), plugins_url( 'assets/screenshot-4.jpg', __SVT_FILE__ ) ) ); ?>"
 									 alt="Responsive frontend timeline output"
 									 style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
 							</p>
