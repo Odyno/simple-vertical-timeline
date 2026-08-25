@@ -72,6 +72,14 @@
 								_e( 'Legacy shortcodes [svtimeline] and [svt-event] are still supported for backward compatibility with existing posts.', 'svt' );
 								_e( '<h2>DONE</h2>Publish/update the post and the frontend output stays aligned with editor settings.', 'svt' );
 								?></p>
+							<p>
+								<strong><?php _e( 'Canonical preview screenshot', 'svt' ); ?>:</strong>
+							</p>
+							<p>
+								<img src="<?php echo esc_url( plugins_url( 'assets/screenshot-4.jpg', __SVT_FILE__ ) ); ?>"
+								     alt="Simple Vertical Timeline responsive preview"
+								     style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
+							</p>
 						</div>
 
 

@@ -84,10 +84,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 None
 
 == Screenshots ==
-1. Block Inserter: Simple Vertical Timeline
-2. Timeline Event block settings
-3. Timeline with events in editor
-4. Timeline responsive view
+1. Canonical screenshot: responsive frontend timeline view (used across plugin docs/admin).
 
 
 == Changelog ==

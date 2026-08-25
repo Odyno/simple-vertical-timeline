@@ -40,6 +40,12 @@ The legacy shortcodes still work for backward compatibility:
 5. Fill the event details in the sidebar
 6. Write the event description directly in the block
 
+## Screenshot
+
+Canonical screenshot used across docs/admin:
+
+![Simple Vertical Timeline - responsive frontend](assets/screenshot-4.jpg)
+
 ## Installation
 
 ### Integrated WordPress plugin installer
