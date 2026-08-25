@@ -65,13 +65,62 @@
 					<div class="inside">
 
 						<div id="information_tab" class="tabcontent">
-							<p><?php
-								_e( 'Simple Vertical Timeline lets you build timelines with blocks (recommended) or with legacy shortcodes for old content.<h1>QUICK START (BLOCK EDITOR)</h1>Open a post/page in the block editor and insert "Simple Vertical Timeline" as container.', 'svt' );
-								_e( '<h2>STEP A</h2> Insert one or more "Timeline Event" blocks inside the timeline container.', 'svt' );
-								_e( '<h2>STEP B</h2> Configure each event in the sidebar: title, date, marker color, icon, optional button link/label, and content.', 'svt' );
-								_e( 'Legacy shortcodes [svtimeline] and [svt-event] are still supported for backward compatibility with existing posts.', 'svt' );
-								_e( '<h2>DONE</h2>Publish/update the post and the frontend output stays aligned with editor settings.', 'svt' );
-								?></p>
+							<h2><?php _e( 'Simple Vertical Timeline — Manual', 'svt' ); ?></h2>
+							<p><?php _e( 'Use Gutenberg blocks for new content. Legacy shortcodes remain available for old posts.', 'svt' ); ?></p>
+
+							<h3><?php _e( '1) Insert the timeline container', 'svt' ); ?></h3>
+							<ol>
+								<li><?php _e( 'Open a post or page in the Block Editor.', 'svt' ); ?></li>
+								<li><?php _e( 'Click Block Inserter (+) and search for "Simple Vertical Timeline".', 'svt' ); ?></li>
+								<li><?php _e( 'Insert the container block in your content.', 'svt' ); ?></li>
+							</ol>
+							<p><strong><?php _e( 'Screenshot #1 — block inserter search', 'svt' ); ?></strong></p>
+							<p>
+								<img src="<?php echo esc_url( add_query_arg( 'v', (string) ( file_exists( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-1.png' ) ? filemtime( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-1.png' ) : time() ), plugins_url( 'assets/screenshot-1.png', __SVT_FILE__ ) ) ); ?>"
+									 alt="Insert Simple Vertical Timeline from Gutenberg Block Inserter"
+									 style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
+							</p>
+
+							<h3><?php _e( '2) Add and configure Timeline Event blocks', 'svt' ); ?></h3>
+							<p><?php _e( 'Inside the timeline, add one or more "Timeline Event" blocks. Each event has editable body content, so you can insert text, images, lists, and other allowed blocks.', 'svt' ); ?></p>
+							<p><strong><?php _e( 'Event settings (right sidebar):', 'svt' ); ?></strong></p>
+							<ul>
+								<li><code>Title</code>: <?php _e( 'event heading shown in the card.', 'svt' ); ?></li>
+								<li><code>Date</code>: <?php _e( 'free text date label (for example: 2026-08-23 or March 2012).', 'svt' ); ?></li>
+								<li><code>Icon source</code>: <?php _e( 'choose "External library (Bootstrap Icons)" or "Image URL".', 'svt' ); ?></li>
+								<li><code>Bootstrap icon name</code>: <?php _e( 'icon token without prefix (example: geo-alt-fill).', 'svt' ); ?></li>
+								<li><code>Icon image URL</code>: <?php _e( 'absolute URL for custom icon image (SVG/PNG).', 'svt' ); ?></li>
+								<li><code>Title CSS class</code>: <?php _e( 'custom class added to the event title element.', 'svt' ); ?></li>
+								<li><code>Date CSS class</code>: <?php _e( 'custom class added to the event date element.', 'svt' ); ?></li>
+								<li><code>Icon color</code> + <code>Icon circle background</code>: <?php _e( 'visual colors for marker icon and marker circle.', 'svt' ); ?></li>
+							</ul>
+							<p><strong><?php _e( 'Screenshot #2 — Event settings and editable event content', 'svt' ); ?></strong></p>
+							<p>
+								<img src="<?php echo esc_url( add_query_arg( 'v', (string) ( file_exists( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-2.jpg' ) ? filemtime( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-2.jpg' ) : time() ), plugins_url( 'assets/screenshot-2.jpg', __SVT_FILE__ ) ) ); ?>"
+									 alt="Timeline Event settings sidebar and editable event content"
+									 style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
+							</p>
+
+							<h3><?php _e( '3) Validate layout in editor', 'svt' ); ?></h3>
+							<p><?php _e( 'Check event order, titles, dates, markers, and rich content directly in the editor canvas before publishing.', 'svt' ); ?></p>
+							<p><strong><?php _e( 'Screenshot #3 — timeline canvas with multiple events', 'svt' ); ?></strong></p>
+							<p>
+								<img src="<?php echo esc_url( add_query_arg( 'v', (string) ( file_exists( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-3.jpg' ) ? filemtime( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-3.jpg' ) : time() ), plugins_url( 'assets/screenshot-3.jpg', __SVT_FILE__ ) ) ); ?>"
+									 alt="Timeline canvas with multiple events, marker icons, and rich content"
+									 style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
+							</p>
+
+							<h3><?php _e( '4) Verify frontend output', 'svt' ); ?></h3>
+							<p><?php _e( 'Publish or update the post, then verify responsive behavior and final rendering on frontend.', 'svt' ); ?></p>
+							<p><strong><?php _e( 'Screenshot #4 — responsive frontend result', 'svt' ); ?></strong></p>
+							<p>
+								<img src="<?php echo esc_url( add_query_arg( 'v', (string) ( file_exists( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-4.jpg' ) ? filemtime( plugin_dir_path( __SVT_FILE__ ) . 'assets/screenshot-4.jpg' ) : time() ), plugins_url( 'assets/screenshot-4.jpg', __SVT_FILE__ ) ) ); ?>"
+									 alt="Responsive frontend timeline output"
+									 style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
+							</p>
+
+							<h3><?php _e( '5) Legacy shortcode compatibility', 'svt' ); ?></h3>
+							<p><?php _e( 'Old content using [svtimeline] and [svt-event] still works. For shortcode syntax and option details, open the "Shortcodes" tab in this page.', 'svt' ); ?></p>
 						</div>
 
 

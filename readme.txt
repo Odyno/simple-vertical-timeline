@@ -1,25 +1,25 @@
 === Simple Vertical Timeline ===
 Contributors: Odyno
 Tags: responsive timeline, Responsive Timeline WordPress,Timeline for WordPress, Timeline, vertical, timeline, animated, css3, animations, evan, herman, evan herman, easy, time, line, font awesome, font, awesome, announcements, notifications, simple, events, calendar, scroll, triggered, scrolling, animated, fade, in, fade in, timeline, timelines, timelineJS, journalism tool
-Donate link: http://www.staniscia.net/donate
+Donate link: https://www.staniscia.net/donate
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 7.4
 Stable tag: 0.2.0
 Text Domain: svt
 License: GPLv2
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Allow to create a  Simple Vertical Timeline on the current blog.
+Create a Simple Vertical Timeline in your WordPress posts and pages.
 
 == Description ==
-Simple Vertical Timeline is a simple plugin that allow you to create a timeline in your Article or Page.
+Simple Vertical Timeline lets you build vertical timelines in posts and pages using Gutenberg blocks, with legacy shortcode compatibility for existing content.
 
-**Block Editor (recommended)**: add the "Simple Vertical Timeline" block, then insert "Timeline Event" blocks inside it. Each event has title, date, node color, icon, optional button, and rich content.
+**Block Editor (recommended)**: add the "Simple Vertical Timeline" block, then insert "Timeline Event" blocks inside it. Each event supports title, date, icon source (library or image URL), color controls, custom CSS classes, and rich content.
 
 **Classic Editor fallback**: the legacy shortcodes [svtimeline] and [svt-event] still work for backward compatibility with old posts.
 
-Follow me to discover this new feature for your your wordpress.
+Use the steps below to create and customize your timeline.
 
 = Quick start, your first timeline (Block Editor) =
 
@@ -27,7 +27,7 @@ Follow me to discover this new feature for your your wordpress.
 2. Click the **+** (Block Inserter)
 3. Search for **"Simple Vertical Timeline"** and insert it
 4. Click **+** inside the timeline to add your first **Timeline Event**
-5. Fill the event details in the sidebar (title, date, color, icon, button)
+5. Fill the event details in the sidebar (title, date, icon source, icon style, and CSS classes)
 6. Write the event description directly in the block
 
 = Legacy: shortcode method (Classic Editor) =
@@ -36,9 +36,17 @@ If you still use the Classic Editor, the old shortcodes work:
 - `[svtimeline]` ... `[/svtimeline]` — creates the timeline container
 - `[svt-event title="My Event" date="2026-01-01" title_class="my-custom-class"]` ... `[/svt-event]` — adds an event with custom title CSS class
 
-= ... IS IT ALL? =
-Yes and no, if you don't want to customise the timeline, that's all. But if you want you can try to customise the event as you want. Now all the short code are on place and it's only up to you to add event or custom comment.
-Enjoy
+= Advanced customization =
+You can style specific event fields with custom CSS classes.
+
+Shortcode example:
+`[svt-event title="My Event" date="2026-01-01" title_class="my-custom-title" ]...[/svt-event]`
+
+Block editor equivalents:
+- `Title CSS class`
+- `Date CSS class`
+
+These classes are added to the rendered title/date elements so you can target them from your theme or custom CSS.
 
 ——
 Icons Used Please refer to https://linearicons.com/free/license for the license.
@@ -84,11 +92,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 None
 
 == Screenshots ==
-1. Block Inserter: Simple Vertical Timeline
-2. Timeline Event block settings
-3. Timeline with events in editor
-4. Timeline responsive view
-5. Share Event
+1. How to insert SVT in a post/article using Gutenberg blocks (search "Simple Vertical Timeline" in Block Inserter).
+2. How to add an event to the current SVT: "Event settings" fields + free event content area in Gutenberg.
+3. Timeline editor canvas with multiple events (including image content), visible marker icons, and date/title preview.
+4. Frontend responsive timeline preview (mobile layout).
 
 
 == Changelog ==
@@ -98,8 +105,14 @@ None
 * NEW: Dynamic blocks (server-rendered) for consistent output with shortcode
 * NEW: Block sidebar settings for title, date, color, icon, button, and custom title CSS class
 * NEW: Shortcode parameter `title_class` for custom CSS classes on event title (from PR #5 idea)
+* FIX: Admin settings toggles (sign, analytics) not persisting correctly on save
+* FIX: Analytics/contrib option check using a broken nested get_option() call
+* REMOVE: Social media sharing feature entirely (admin toggle, PHP logic, CSS, icons) — was non-functional and unmaintained
 * REMOVE: TinyMCE legacy buttons (svtimeline, svtevent)
 * REMOVE: js/svtplugin/ directory (TinyMCE plugin)
+* REMOVE: legacy build toolchain (Grunt, SCSS/Bourbon, CoffeeScript, deploy.sh)
+* NEW: deterministic CSS minification via npm scripts (clean-css-cli)
+* Update: admin help page aligned with Block Editor workflow
 * Keep: shortcodes [svtimeline] and [svt-event] for backward compatibility
 * Update: WordPress 6.7 block editor support
 * Update: @wordpress/scripts build system
