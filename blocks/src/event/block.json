@@ -7,9 +7,9 @@
 	"category": "design",
 	"icon": "marker",
 	"description": "A single event in a Simple Vertical Timeline.",
-	"keywords": [ "timeline", "event", "milestone" ],
+	"keywords": ["timeline", "event", "milestone"],
 	"textdomain": "svt",
-	"parent": [ "svt/timeline" ],
+	"parent": ["svt/timeline"],
 	"supports": {
 		"html": false,
 		"reusable": false
@@ -23,23 +23,31 @@
 			"type": "string",
 			"default": ""
 		},
-		"nodeColor": {
-			"type": "string",
-			"default": "svt-cd-green"
-		},
 		"icon": {
 			"type": "string",
 			"default": ""
 		},
-		"buttonLabel": {
+		"iconMode": {
+			"type": "string",
+			"default": "library"
+		},
+		"iconClass": {
+			"type": "string",
+			"default": "bi-geo-alt-fill"
+		},
+		"iconColor": {
 			"type": "string",
 			"default": ""
 		},
-		"buttonLink": {
+		"markerBgColor": {
 			"type": "string",
 			"default": ""
 		},
 		"titleClass": {
+			"type": "string",
+			"default": ""
+		},
+		"dateClass": {
 			"type": "string",
 			"default": ""
 		}

@@ -1,1 +1,1 @@
-.svt-editor-timeline{border-left:3px solid #d7e4ed;margin:1rem 0;padding-left:1rem}.svt-editor-timeline .block-list-appender{margin:.75rem 0}
+.wp-block-svt-timeline{padding:.25rem .5rem .5rem 0;position:relative}.wp-block-svt-timeline:before{background:#cbd5e1;border-radius:999px;bottom:0;content:"";left:30px;position:absolute;top:0;width:3px}.wp-block-svt-timeline .svt-editor-event{margin-left:.2rem}

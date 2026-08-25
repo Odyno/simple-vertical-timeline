@@ -1,11 +1,21 @@
-/* Editor-only styles for the Timeline container block. */
+/* Editor-side timeline container visualization. */
 
-.svt-editor-timeline {
-	border-left: 3px solid #d7e4ed;
-	padding-left: 1rem;
-	margin: 1rem 0;
+.wp-block-svt-timeline {
+	position: relative;
+	padding: 0.25rem 0.5rem 0.5rem 0;
 }
 
-.svt-editor-timeline .block-list-appender {
-	margin: 0.75rem 0;
+.wp-block-svt-timeline::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 30px;
+	width: 3px;
+	background: #cbd5e1;
+	border-radius: 999px;
+}
+
+.wp-block-svt-timeline .svt-editor-event {
+	margin-left: 0.2rem;
 }
