@@ -1,12 +1,12 @@
 # Simple Vertical Timeline
 
-Allow to create a Simple Vertical Timeline on the current blog.
+Create a Simple Vertical Timeline in your WordPress posts and pages.
 
-[![WordPress](https://img.shields.io/wordpress/v/simple-vertical-timeline.svg)]() [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/simple-vertical-timeline.svg)]() [![WordPress rating](https://img.shields.io/wordpress/plugin/r/simple-vertical-timeline.svg)]()
+[![WordPress](https://img.shields.io/wordpress/v/simple-vertical-timeline.svg)](https://wordpress.org/plugins/simple-vertical-timeline/) [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/simple-vertical-timeline.svg)](https://wordpress.org/plugins/simple-vertical-timeline/) [![WordPress rating](https://img.shields.io/wordpress/plugin/r/simple-vertical-timeline.svg)](https://wordpress.org/plugins/simple-vertical-timeline/)
 
 ## Description
 
-Simple Vertical Timeline is a simple plugin that allows you to create a timeline in your Article or Page.
+Simple Vertical Timeline lets you build vertical timelines in posts and pages with Gutenberg blocks.
 
 ### Block Editor (recommended)
 
@@ -14,10 +14,10 @@ Add the **"Simple Vertical Timeline"** block, then insert **"Timeline Event"** b
 
 Each event supports:
 - Title and date
-- Node color (green, red, blue, yellow)
-- Custom icon URL
-- Optional "Read more" button with link
-- Rich text content (paragraphs, images, etc.)
+- Icon source: Bootstrap Icons library or custom image URL
+- Title CSS class and Date CSS class
+- Icon color and icon circle background color
+- Rich content (paragraphs, images, lists, and more)
 
 ### Classic Editor fallback
 
@@ -60,14 +60,6 @@ The legacy shortcodes still work for backward compatibility:
 4. Frontend responsive timeline (mobile).
 
 ![Simple Vertical Timeline - responsive frontend](assets/screenshot-4.jpg)
-
-5. Frontend validation capture.
-
-![Simple Vertical Timeline - frontend validation](assets/screenshot-5.jpg)
-
-6. Editor/settings validation capture.
-
-![Simple Vertical Timeline - editor validation](assets/screenshot-6.png)
 
 ## Installation
 
