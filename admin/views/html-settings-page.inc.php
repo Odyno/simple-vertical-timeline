@@ -88,6 +88,14 @@
 								     alt="Add Timeline Event and configure Event settings fields in Gutenberg"
 								     style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
 							</p>
+							<p>
+								<strong><?php _e( 'Step 3 screenshot: timeline canvas with multiple events, icon markers, and rich event content', 'svt' ); ?>:</strong>
+							</p>
+							<p>
+								<img src="<?php echo esc_url( plugins_url( 'assets/screenshot-3.jpg', __SVT_FILE__ ) ); ?>"
+								     alt="Timeline editor canvas with multiple events, marker icons, and event content"
+								     style="max-width:100%;height:auto;border:1px solid #dcdcde;border-radius:6px;" />
+							</p>
 						</div>
 
 

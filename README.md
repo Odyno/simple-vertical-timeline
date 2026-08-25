@@ -53,9 +53,9 @@ The legacy shortcodes still work for backward compatibility:
 
 ![Step 2 - Add Timeline Event and configure Event settings](assets/screenshot-2.jpg)
 
-3. Editor timeline with multiple events.
+3. Timeline editor canvas with multiple events, image content, marker icons, and date/title preview.
 
-![Simple Vertical Timeline - editor timeline](assets/screenshot-3.jpg)
+![Step 3 - Timeline editor with multiple events and image content](assets/screenshot-3.jpg)
 
 4. Frontend responsive timeline (mobile).
 
